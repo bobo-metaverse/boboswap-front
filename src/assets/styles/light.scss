@@ -1,0 +1,20 @@
+$colors-light: (
+  bg:#ffffff,
+  /*Header*/
+  address:#EBEFF2,
+  address_span:#77808E,
+  /*Transaction*/
+  transaction_nav:#EBEFF2,
+  transaction_nav_span:#71819A,
+  transaction_nav_active:#0350DA,
+   /*Trade*/
+   assets:#131415,
+   select_down:#ffffff,
+   select_down_border:#EBEFF2,
+   dropdown__item:#141319,
+   el-popper:#EBEFF2,
+   border-bottom-color:#EBEFF2,
+   el-input__inner_border_color:#EBEFF2,
+   border-right-color:rgba($color: #EBEFF2, $alpha: 1),
+   input_color:#141319
+);

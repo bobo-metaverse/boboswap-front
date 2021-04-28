@@ -1,0 +1,28 @@
+@import "../base.scss";
+
+#Header {
+  width: calc(100% - 40px);
+  height: 60px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  .address{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 4px 8px;
+    @include bg-color(address);
+    border-radius: 50px;
+    span{
+      @include text-color(address_span);
+      margin-left: 5px;
+    }
+  }
+}
