@@ -1,21 +1,29 @@
 <template>
   <div class="index" :data-theme="theme">
-    <Header v-show="isHeader" />
+    <Header v-show="isHeader" @chageDrawer="drawer = true" />
     <router-view></router-view>
+    <el-drawer
+      title=""
+      :visible.sync="drawer"
+      :with-header="false"
+      direction="ltr"
+      size="85%"
+    >
+      <ControlCenter />
+    </el-drawer>
   </div>
 </template>
 <script>
 import Header from "../components/Header/Header";
+import ControlCenter from "../components/ControlCenter/ControlCenter";
 export default {
   name: "Index",
   data() {
     return {
       lang: localStorage.getItem("Lang") ? localStorage.getItem("Lang") : "zh",
-      // theme: localStorage.getItem("Skin")
-      //   ? localStorage.getItem("Skin")
-      //   : "light",
 
       rate: localStorage.getItem("Rate") ? localStorage.getItem("Rate") : "USD",
+      drawer: false,
     };
   },
   mounted() {
@@ -60,7 +68,7 @@ export default {
       location.reload();
     },
   },
-  components: { Header },
+  components: { Header, ControlCenter },
 };
 </script>
 <style lang="scss" >

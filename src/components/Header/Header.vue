@@ -1,6 +1,10 @@
 <template>
   <div id="Header">
-    <img :src="theme == 'dark' ? logo : logo2" class="logo" />
+    <img
+      :src="theme == 'dark' ? logo : logo2"
+      class="logo"
+      @click="chageDrawer"
+    />
     <div class="address">
       <img src="../../assets/images/addressIcon.png" />
       <span>0x2164j6…d010</span>
@@ -10,6 +14,7 @@
 <script>
 let logo = require("../../assets/images/logo.png");
 let logo2 = require("../../assets/images/logo2.png");
+
 export default {
   name: "Header",
   data() {
@@ -23,7 +28,12 @@ export default {
       return this.$store.state.skin;
     },
   },
-  methods: {},
+  components: {},
+  methods: {
+    chageDrawer() {
+      this.$emit("chageDrawer");
+    },
+  },
 };
 </script>
 <style lang="scss">

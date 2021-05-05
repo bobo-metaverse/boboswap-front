@@ -12,7 +12,7 @@
   top: 0;
   left: 0;
   @include bg-color(bg);
-  z-index: 4000;
+  z-index: 2000;
   .address{
     display: flex;
     flex-direction: row;

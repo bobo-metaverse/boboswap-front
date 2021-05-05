@@ -2,10 +2,7 @@
   <div class="trade">
     <div class="trade_view">
       <div class="view_left">
-        <img
-          :src="theme == 'dark' ? view_img1 : view_img2"
-          @click="drawer = true"
-        />
+        <!-- <img :src="theme == 'dark' ? view_img1 : view_img2" /> -->
         <span class="assets">FILDA/USDT</span>
         <span class="rate">-38.37%</span>
       </div>
@@ -177,15 +174,6 @@
       <CurrentEntrust v-if="listInde" />
       <TransactionRecord v-else />
     </div>
-    <el-drawer
-      title="我是标题"
-      :visible.sync="drawer"
-      :with-header="false"
-      direction="ltr"
-      size="85%"
-    >
-      <ControlCenter />
-    </el-drawer>
   </div>
 </template>
 
@@ -194,12 +182,10 @@ let view_img1 = require("../../assets/images/view_img1.png");
 let view_img2 = require("../../assets/images/view_img3.png");
 import CurrentEntrust from "./CurrentEntrust";
 import TransactionRecord from "./TransactionRecord";
-import ControlCenter from "../ControlCenter/ControlCenter";
 export default {
   name: "Trade",
   data() {
     return {
-      drawer: false,
       buy_sell: true,
       listInde: true,
       view_img1: view_img1,
@@ -225,11 +211,8 @@ export default {
       return this.$store.state.skin;
     },
   },
-  components: { CurrentEntrust, TransactionRecord, ControlCenter },
+  components: { CurrentEntrust, TransactionRecord },
   methods: {
-    chageDrawer(v) {
-      this.drawer = v;
-    },
     chageInput(value) {
       //sliderChage
       this.input = value;
