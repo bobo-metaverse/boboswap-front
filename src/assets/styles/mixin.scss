@@ -44,6 +44,12 @@
     border-left-color:map-get($colors-light, $color);
   }
 }
+@mixin border-top($color) {
+  border-top:1px solid map-get($colors-dark, $color);
+  [data-theme="light"] & {
+    border-left-color:map-get($colors-light, $color);
+  }
+}
 @mixin diyborder($width,$color) {
   border-right:$width solid  map-get($colors-dark, $color);
   [data-theme="light"] & {

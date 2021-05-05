@@ -1,111 +1,93 @@
 @import '../base.scss';
 
 .pool{
-  width: calc(100% - 20px);
-  height: calc(100% - 140px);
-  @include bg-color(app);
+  width: calc(100% - 40px);
+  padding: 0 20px;
+  height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
-  padding: 10px;
-  padding-top: 60px;
-  padding-bottom: 60px;
-  overflow-y: scroll;
-  font-size: 14px;
-  .el-tabs__active-bar {
-    background-color: #1da57a !important;
-  }
-  .el-tabs__item:hover,
-  .el-tabs__item.is-active {
-    color: #1da57a !important ;
-  }
-  .tvl{
+  margin-top: 20px;
+  
+  .pool_item{
     width: 100%;
     height: auto;
-    margin-top: 10px;
-    box-sizing: border-box;
-    padding: 15px 20px;
-    @include bg-color(infoBlock);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
-  .el-tabs,.el-tabs--top{
-    width: 100%;
-  }
-  .pool_nav{
-    width: 100%;
-    padding: 0 10px;
-    @include bg-color(infoBlock);
-    margin-top: 20px;
-    border-radius: 10px;
-    min-height: 500px;
-    padding-bottom: 20px;
-    box-sizing: border-box;
+    @include bg-color(select_down);
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    /*交易对*/
-    .transaction_couple{
-      width: 100%;
-      height: auto;
+    align-items: center;
+    margin-bottom: 20px;
+    @include border(border-bottom-color);
+    .poll_title{
+      width: calc(100% - 22px);
       display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
+      flex-direction: row;
+      justify-content: space-between;
       align-items: center;
-      .mining{
-        width: calc(100% - 4px);
-        height: auto;
+      padding: 10px 11px;
+      @include border-bottom(1px,list_nav_active);
+      .incons{
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-        margin-bottom: 20px;
-        padding: 20px 0;
-        border: 2px dashed rgba(0, 0, 0, 0.2);
-        .mining_type{
-          width: 100%;
-          height: auto;
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
-          .trans{
-            font-size: 22px;
-            @include text-color(logo-span);
-            margin: 0 20px;
-          }
-          img{
-            width: 40px;
-            height:40px ;
-          }
+        .bobo{
+          margin-left: -15px;
         }
       }
-      .mining_asset{
-        @include text-color(logo-span);
-        margin: 8px 0;
-      }
-      .apy{
-        color: #1DA57A;
+      .asset{
         font-size: 16px;
-        font-weight: bold;
+        font-weight: 500;
+        @include text-color(text1_first_child);
       }
-      .mining_btn{
-        width: 80%;
-        height: 35px;
-        text-align: center;
-        line-height: 35px;
-        background: #1da57a;
-        color: #fff;
-        border-radius: 50px;
-        margin-top: 15px;
+    }
+    .pool_center{
+      width: calc(100% - 22px);
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 11px;
+      .left{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
       }
+      .left :first-child{
+        font-size: 18px;
+        color: #2866EF;
+      }
+      .left :last-child{
+        font-size: 12px;
+        color: #77808E;
+      }
+      .right{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+      }
+      .right :first-child{
+        font-size: 18px;
+        @include text-color(text1_first_child);
+      }
+      .right :last-child{
+        font-size: 12px;
+        color: #77808E;
+      }
+    }
+    .mining_btn{
+      width: 100%;
+      height: 42px;
+      background: #1B55D1;
+      border-radius: 5px;
+      line-height: 42px;
+      text-align: center;
+      color: #fff;
+      font-size: 12px;
     }
   }
 }

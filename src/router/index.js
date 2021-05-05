@@ -18,10 +18,10 @@ const routes = [
         component: () => import('../views/Transaction.vue')
       },
       {
-        path: '/swap',
-        name: 'Swap',
-        component: () => import('../views/Swap.vue')
-      },
+        path: '/search',
+        name: 'Search',
+        component: () => import('../views/Search.vue')
+      }
      
     ]
   },

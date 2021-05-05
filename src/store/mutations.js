@@ -1,7 +1,11 @@
 import * as TYPES from "./types";
 const mutations = {
-  [TYPES.IS_HEADER](state, v) {
-		state.isHeader = v;
+  [TYPES.CHANGE_SKIN](state, v) {
+		state.skin = v;
+		localStorage.setItem("Skin", v);
+	},
+	[TYPES.CHANGE_HEADER](state, v) {
+		state.header = v;
 	},
 }
 export default mutations

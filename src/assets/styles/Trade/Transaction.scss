@@ -1,17 +1,19 @@
 @import '../base.scss';
 .transaction{
-  width: calc(100% - 40px);
+  width: 100%;
   height: auto;
   min-height:calc(100% - 60px);
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 0 20px;
+ 
   padding-top: 60px;
+  @include bg-color(bg);
   .transaction_nav{
-    width: 100%;
+   
+    width: calc(100% - 40px);
+    padding: 0 20px;
     height: auto;
     @include border-bottom(1px,transaction_nav);
     display: flex;

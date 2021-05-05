@@ -5,12 +5,14 @@ import {store} from './store/index'
 import i18n from './vueI18n/i18n'
 import axios from 'axios'
 import qs from 'qs'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 require('./assets/font/Source Han Sans CN Regular.css');
 require ('./assets/iconfont/iconfont.css')
-require('./assets/js/element')
+// require('./assets/js/element')
 
-
+Vue.use(ElementUI);
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 

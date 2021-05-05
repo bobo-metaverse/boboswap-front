@@ -1,4 +1,5 @@
 const state = {
-	isHeader:true
+	skin: localStorage.getItem("Skin"),
+	header:true
 }
 export default state

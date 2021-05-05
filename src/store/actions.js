@@ -1,8 +1,11 @@
 import * as TYPES from "./types"
 const actions = {
-  showHeader(vuex, v) {
-    vuex.commit(TYPES.IS_HEADER, v)
+  changeSkin(vuex, v) {
+    vuex.commit(TYPES.CHANGE_SKIN, v)
     
+  },
+  chageHeader(vuex, v) {
+    vuex.commit(TYPES.CHANGE_HEADER, v)
 	},
 }
 export default actions

@@ -1,22 +1,20 @@
 <template>
   <div class="index" :data-theme="theme">
-    <Header />
+    <Header v-show="isHeader" />
     <router-view></router-view>
-    <!-- <MainNet /> -->
   </div>
 </template>
 <script>
 import Header from "../components/Header/Header";
-// import Header from "../components/Header/Header";
-// import MainNet from "../components/Footer/SelectMainNet";
 export default {
   name: "Index",
   data() {
     return {
       lang: localStorage.getItem("Lang") ? localStorage.getItem("Lang") : "zh",
-      theme: localStorage.getItem("Skin")
-        ? localStorage.getItem("Skin")
-        : "light",
+      // theme: localStorage.getItem("Skin")
+      //   ? localStorage.getItem("Skin")
+      //   : "light",
+
       rate: localStorage.getItem("Rate") ? localStorage.getItem("Rate") : "USD",
     };
   },
@@ -25,20 +23,27 @@ export default {
     localStorage.getItem("Skin") ? null : localStorage.setItem("Skin", "dark");
     localStorage.getItem("Rate") ? null : localStorage.setItem("Rate", "USD");
   },
+  computed: {
+    theme() {
+      return this.$store.state.skin;
+    },
+    isHeader() {
+      return this.$store.state.header;
+    },
+  },
   watch: {
+    isHeader(newHeader) {
+      this.$store.dispatch("chageHeader", newHeader);
+    },
     theme(newThem) {
       localStorage.setItem("Skin", newThem);
+      this.$store.dispatch("changeSkin", newThem);
     },
     rate(newRate) {
       localStorage.setItem("USD", newRate);
     },
   },
   methods: {
-    switchSkin(them) {
-      //换肤
-      //this.theme = this.theme == "linght" ? "dark" : "linght";
-      this.theme = them;
-    },
     changeLaguages() {
       //语言切换
       let lang = this.$i18n.locale;
@@ -62,9 +67,9 @@ export default {
 @import "../assets/styles/base";
 .index {
   width: 100%;
-  height: auto;
-  min-height: 100%;
-  @include bg-color(bg);
+  height: 100%;
+  overflow-y: scroll;
+
   font-size: 14px;
 }
 </style>

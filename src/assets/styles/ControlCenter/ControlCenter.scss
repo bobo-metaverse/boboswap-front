@@ -1,0 +1,96 @@
+@import '../base.scss';
+
+.center{
+  width: calc(100% - 40px);
+  height: calc(100% - 20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px 20px 0 20px;
+  letter-spacing: 1px;
+  .logo{
+    margin-bottom: 25px;
+  }
+  .welcome{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 135px;
+    margin-top: 34px;
+    span{
+      @include text-color(link_text);
+      font-size: 20px;
+      letter-spacing: 1px;
+    }
+    i{
+      @include text-color(link_icon);
+      font-size: 15px;
+      margin-left: 11px;
+    }
+    .welcomen_text{
+      font-size: 13px;
+      @include text-color(link_text);
+      letter-spacing: 1px;
+      margin-top: 5px;
+    }
+  }
+  .user_center{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 34px;
+    margin-bottom: 24px;
+    .address{
+      font-size: 13px;
+      @include text-color(link_text);
+      margin: 8px 0 15px 0;
+    }
+    .total_asset{
+      font-size: 12px;
+      color: #77808E;
+    }
+    .total_num{
+      font-size: 27px;
+      @include text-color(link_text);
+      margin: 5px 0;
+      
+    }
+  }
+  .control{
+    width: 100%;
+    height: auto;
+    padding: 20px 0;
+    @include border-top(control);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    .control_item{
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 16px;
+      span{
+        font-size: 15px;
+        @include text-color(link_text);
+        margin-left: 10px;
+      }
+    }
+  }
+}
+.el-drawer__wrapper{
+  z-index: 4001!important;
+}
+.el-drawer__body{
+  @include bg-color(el-drawer__body);
+}
