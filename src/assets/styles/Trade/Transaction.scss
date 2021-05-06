@@ -28,10 +28,16 @@
       @include text-color(transaction_nav_span);
       margin-right: 22px;
     }
-    .active{
-     @include text-color(transaction_nav_active);
-    @include border-bottom(3px,transaction_nav_active);
-     
-    }
+   
   }
 }
+.active{
+  @include text-color(transaction_nav_active);
+ @include border-bottom(3px,transaction_nav_active);
+  
+ }
+ [data-theme="light"] .active{
+  border-bottom: 3px solid #1B55D1;
+  color: #0350DA!important;
+  
+ }
