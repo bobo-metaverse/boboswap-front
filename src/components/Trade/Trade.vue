@@ -118,7 +118,10 @@
         </div>
         <div class="edu">
           <span class="huadian"
-            >滑点限制<i class="iconfont icon-sysseting"></i
+            >滑点限制<i
+              class="iconfont icon-sysseting"
+              @click="centerDialogVisible = true"
+            ></i
           ></span>
           <span>0.1 %</span>
         </div>
@@ -173,6 +176,14 @@
       </div>
       <CurrentEntrust v-if="listInde" />
       <TransactionRecord v-else />
+      <el-dialog
+        title="交易设置"
+        :visible.sync="centerDialogVisible"
+        width="90%"
+        center
+      >
+        <SlidingPointDialog />
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -182,6 +193,7 @@ let view_img1 = require("../../assets/images/view_img1.png");
 let view_img2 = require("../../assets/images/view_img3.png");
 import CurrentEntrust from "./CurrentEntrust";
 import TransactionRecord from "./TransactionRecord";
+import SlidingPointDialog from "./SlidingPointSetingDialog";
 export default {
   name: "Trade",
   data() {
@@ -193,6 +205,7 @@ export default {
       input: "",
       num: 1,
       value2: 0,
+      centerDialogVisible: false,
       options: [
         {
           value: "市价委托",
@@ -211,7 +224,7 @@ export default {
       return this.$store.state.skin;
     },
   },
-  components: { CurrentEntrust, TransactionRecord },
+  components: { CurrentEntrust, TransactionRecord, SlidingPointDialog },
   methods: {
     chageInput(value) {
       //sliderChage

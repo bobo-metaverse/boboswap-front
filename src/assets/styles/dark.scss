@@ -16,7 +16,7 @@ $colors-dark: (
    border-bottom-color:#1A2940,
    el-input__inner_border_color:rgba($color: #1A2940, $alpha: 0.5),
    border-right-color:rgba($color: #fafafa, $alpha: 0.2),
-   input_color:#EBEFF2,
+   input_color:#DCDFE6,
    btns_span:#1A2940,
    el-slider__runway:#1A2940,
   line_box:#0C192B,
@@ -29,4 +29,8 @@ $colors-dark: (
   link_text:#ffffff,
   link_icon:#71819A,
   control:#0C192B,
+  dialog_bg:#152131,
+  title-text: #9ca3b0,
+  el-input_inner: rgba(20,29,48,1),
+  input-group:#1A2940,
 );

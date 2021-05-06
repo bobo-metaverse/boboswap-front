@@ -1,10 +1,6 @@
 <template>
   <div class="center" :data-theme="theme">
-    <img
-      :src="theme == 'dark' ? logo : logo2"
-      class="logo"
-      @click="chageSkin"
-    />
+    <img :src="theme == 'dark' ? logo : logo2" class="logo" />
     <div class="welcome" v-if="!linkStatus">
       <div class="link">
         <span @click="linkStatus = true">点击连接钱包</span>
@@ -36,9 +32,76 @@
         <img :src="theme == 'dark' ? img4 : img4_4" />
         <span>跨链桥</span>
       </div>
-      <div class="control_item">
+      <div class="control_item seting">
         <img :src="theme == 'dark' ? img5 : img5_5" />
-        <span>简体中文/ USD / light</span>
+        <span @click="showAction = !showAction">
+          {{ lang == 1 ? "简体中文" : "English" }}
+          / {{ rate == 1 ? "CNY" : "USDT" }} /
+          {{ skin == 1 ? "Dark" : "Light" }}
+        </span>
+        <i
+          class="iconfont icon"
+          :class="showAction ? 'icon-up1' : ' icon-down_3'"
+        ></i>
+        <div class="seting_box" v-show="showAction">
+          <span class="title">语言</span>
+          <div class="item">
+            <div class="lang" @click="chageLang(1)">
+              <span>简体中文</span>
+              <i
+                v-show="lang == 1"
+                class="iconfont icon-chose"
+                :class="lang == 1 ? 'actived' : null"
+              ></i>
+            </div>
+            <div class="lang right" @click="chageLang(2)">
+              <span>English</span>
+              <i
+                v-show="lang == 2"
+                class="iconfont icon-chose"
+                :class="lang == 2 ? 'actived' : null"
+              ></i>
+            </div>
+          </div>
+          <span class="title" style="margin-top: 20px">汇率</span>
+          <div class="item">
+            <div class="lang" @click="chageRate(1)">
+              <span>CNY</span>
+              <i
+                v-show="rate == 1"
+                class="iconfont icon-chose"
+                :class="rate == 1 ? 'actived' : null"
+              ></i>
+            </div>
+            <div class="lang right" @click="chageRate(2)">
+              <span>USDT</span>
+              <i
+                v-show="rate == 2"
+                class="iconfont icon-chose"
+                :class="rate == 2 ? 'actived' : null"
+              ></i>
+            </div>
+          </div>
+          <span class="title" style="margin-top: 20px">主题</span>
+          <div class="item">
+            <div class="lang" @click="chageSkin(1)">
+              <span>Dark</span>
+              <i
+                v-show="skin == 1"
+                class="iconfont icon-chose"
+                :class="skin == 1 ? 'actived' : null"
+              ></i>
+            </div>
+            <div class="lang right" @click="chageSkin(2)">
+              <span>Light</span>
+              <i
+                v-show="skin == 2"
+                class="iconfont icon-chose"
+                :class="skin == 2 ? 'actived' : null"
+              ></i>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -74,6 +137,10 @@ export default {
       img5,
       img5_5,
       theme: localStorage.getItem("Skin"),
+      lang: localStorage.getItem("Lang") == "zh" ? 1 : 2,
+      rate: localStorage.getItem("Rate") == "USDT" ? 1 : 2,
+      skin: localStorage.getItem("Skin") == "dark" ? 1 : 2,
+      showAction: false,
     };
   },
   watch: {
@@ -83,7 +150,14 @@ export default {
     },
   },
   methods: {
-    chageSkin() {
+    chageLang(n) {
+      this.lang = n;
+    },
+    chageRate(n) {
+      this.rate = n;
+    },
+    chageSkin(n) {
+      this.skin = n;
       this.theme = localStorage.getItem("Skin") == "dark" ? "light" : "dark";
       localStorage.setItem("Skin", this.theme);
     },

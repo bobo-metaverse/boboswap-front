@@ -368,6 +368,12 @@
   }
   
 }
+.el-dialog, .el-pager li{
+  @include bg-color(dialog_bg);
+}
+.el-dialog__title{
+  @include text-color(link_text);
+}
 .el-slider__runway{
  @include bg-color(el-slider__runway);
   height: 1px;
