@@ -7,7 +7,7 @@
         <span class="rate">-38.37%</span>
       </div>
       <div class="view_right">
-        <img src="../../assets/images/view_img2.png" />
+        <img src="../../assets/images/view_img2.png" @click="chart" />
         <i class="iconfont icon-more more"></i>
       </div>
     </div>
@@ -229,6 +229,10 @@ export default {
     chageInput(value) {
       //sliderChage
       this.input = value;
+    },
+    chart() {
+      this.$store.dispatch("chageHeader", false);
+      this.$router.push("/chart");
     },
   },
 };

@@ -1,0 +1,54 @@
+<template>
+  <div class="Chart">
+    <div class="title">
+      <i class="iconfont icon-left_2 left_icon"></i>
+      <span class="line"></span>
+      <span class="text">BTC/USDT</span>
+    </div>
+    <div class="data">
+      <div class="data_left">
+        <span class="red_data">8017.15</span>
+        <div class="data_item2">
+          <span>≈57001.93CNY</span>
+          <span>-0.08%</span>
+        </div>
+      </div>
+      <div class="data_right">
+        <div class="right_item"><span>高</span><span>8036.29</span></div>
+        <div class="right_item"><span>低</span><span>8013.29</span></div>
+        <div class="right_item"><span>24H</span><span>17315</span></div>
+      </div>
+    </div>
+    <ChartChild />
+    <div class="list">
+      <div class="list_nav">
+        <span class="nav_text list_nav_active">委托挂单</span>
+        <span class="nav_text">成交</span>
+        <span class="nav_text">简介</span>
+      </div>
+      <div class="list_box">
+        <OrderRegistration />
+      </div>
+    </div>
+    <div class="footer">
+      <span class="buy">买入</span>
+      <span class="sell">卖出</span>
+      <span class="collection"> <i class="iconfont icon-star"></i></span>
+    </div>
+  </div>
+</template>
+<script>
+import ChartChild from "../components/Chart/Chart";
+import OrderRegistration from "../components/Chart/OrderRegistration";
+export default {
+  name: "Chart",
+  data() {
+    return {};
+  },
+  components: { ChartChild, OrderRegistration },
+  methods: {},
+};
+</script>
+<style lang="scss" scoped>
+@import "../assets/styles/Chart/Chart";
+</style>

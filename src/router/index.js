@@ -21,6 +21,11 @@ const routes = [
         path: '/search',
         name: 'Search',
         component: () => import('../views/Search.vue')
+      },
+      {
+        path: '/chart',
+        name: 'Chart',
+        component: () => import('../views/Chart.vue')
       }
      
     ]
