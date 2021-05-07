@@ -1,7 +1,7 @@
 <template>
   <div class="Chart">
     <div class="title">
-      <i class="iconfont icon-left_2 left_icon"></i>
+      <i class="iconfont icon-left_2 left_icon" @click="back"></i>
       <span class="line"></span>
       <span class="text">BTC/USDT</span>
     </div>
@@ -46,7 +46,12 @@ export default {
     return {};
   },
   components: { ChartChild, OrderRegistration },
-  methods: {},
+  methods: {
+    back() {
+      this.$store.dispatch("chageHeader", true);
+      this.$router.push("/home");
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
