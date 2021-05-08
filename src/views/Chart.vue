@@ -22,30 +22,53 @@
     <ChartChild />
     <div class="list">
       <div class="list_nav">
-        <span class="nav_text list_nav_active">委托挂单</span>
-        <span class="nav_text">成交</span>
-        <span class="nav_text">简介</span>
+        <span
+          class="nav_text"
+          :class="list_index == 1 ? 'list_nav_active' : null"
+          @click="list_index = 1"
+          >委托挂单</span
+        >
+        <span
+          class="nav_text"
+          :class="list_index == 2 ? 'list_nav_active' : null"
+          @click="list_index = 2"
+          >成交</span
+        >
+        <span
+          class="nav_text"
+          :class="list_index == 3 ? 'list_nav_active' : null"
+          @click="list_index = 3"
+          >简介</span
+        >
       </div>
       <div class="list_box">
-        <OrderRegistration />
+        <OrderRegistration v-if="list_index == 1" />
+        <Deal v-if="list_index == 2" />
+        <Introduction v-if="list_index == 3" />
       </div>
     </div>
     <div class="footer">
       <span class="buy">买入</span>
       <span class="sell">卖出</span>
-      <span class="collection"> <i class="iconfont icon-star"></i></span>
+      <span class="collection">
+        <i class="iconfont icon-star4"></i> <span>自选</span></span
+      >
     </div>
   </div>
 </template>
 <script>
 import ChartChild from "../components/Chart/Chart";
 import OrderRegistration from "../components/Chart/OrderRegistration";
+import Introduction from "../components/Chart/Introduction";
+import Deal from "../components/Chart/Deal";
 export default {
   name: "Chart",
   data() {
-    return {};
+    return {
+      list_index: 2,
+    };
   },
-  components: { ChartChild, OrderRegistration },
+  components: { ChartChild, OrderRegistration, Introduction, Deal },
   methods: {
     back() {
       this.$store.dispatch("chageHeader", true);

@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "6626188",
+      "name": "star",
+      "font_class": "star4",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "773017",
+      "name": "star",
+      "font_class": "star2",
+      "unicode": "e681",
+      "unicode_decimal": 59009
+    },
+    {
+      "icon_id": "792443",
+      "name": "copy2-复制",
+      "font_class": "copy2fuzhi",
+      "unicode": "e701",
+      "unicode_decimal": 59137
+    },
+    {
       "icon_id": "7521437",
       "name": "more",
       "font_class": "more1",

@@ -11,6 +11,8 @@
   letter-spacing: 1px;
   .logo{
     margin-bottom: 25px;
+    width: 92px;
+    height: 19px;
   }
   .welcome{
     width: 100%;
@@ -111,19 +113,19 @@
           width: 100%;
           
           .title{
-            width: 100%;
+            // width: 100%;
             text-align: center;
             padding: 10px 0;
             font-size: 14px;
           }
           .lang{
-            width: 50%;
+            // width: 50%;
             height: auto;
             margin: 10px 0;
             font-size: 13px;
             @include text-color(link_text);
-            border-right: 3px solid #fff;
-            @include border-right-color(border-right-color);
+            // border-right: 3px solid #fff;
+            // @include border-right-color(border-right-color);
             display: flex;
             flex-direction: row;
             justify-content: flex-start;

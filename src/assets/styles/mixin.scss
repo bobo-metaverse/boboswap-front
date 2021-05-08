@@ -26,6 +26,12 @@
     border-bottom:1px solid  map-get($colors-light, $color);
   }
 }
+@mixin border-top-top($size,$color) {
+  border-top:$size solid  map-get($colors-dark, $color);
+  [data-theme="light"] & {
+    border-top:1px solid  map-get($colors-light, $color);
+  }
+}
 @mixin border-bottom-color($color) {
   border-bottom-color:map-get($colors-dark, $color);
   [data-theme="light"] & {

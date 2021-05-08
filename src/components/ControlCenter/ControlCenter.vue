@@ -44,8 +44,8 @@
           :class="showAction ? 'icon-up1' : ' icon-down_3'"
         ></i>
         <div class="seting_box" v-show="showAction">
-          <span class="title">语言</span>
           <div class="item">
+            <span class="title">语言</span>
             <div class="lang" @click="chageLang(1)">
               <span>简体中文</span>
               <i
@@ -63,8 +63,9 @@
               ></i>
             </div>
           </div>
-          <span class="title" style="margin-top: 20px">汇率</span>
+
           <div class="item">
+            <span class="title">汇率</span>
             <div class="lang" @click="chageRate(1)">
               <span>CNY</span>
               <i
@@ -82,8 +83,9 @@
               ></i>
             </div>
           </div>
-          <span class="title" style="margin-top: 20px">主题</span>
+
           <div class="item">
+            <span class="title">主题</span>
             <div class="lang" @click="chageSkin(1)">
               <span>Dark</span>
               <i

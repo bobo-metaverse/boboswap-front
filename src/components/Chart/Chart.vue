@@ -1,8 +1,8 @@
 <template>
   <div class="ChartChild">
     <div class="nav">
-      <span class="nav_text nav_active">分时</span>
-      <span class="nav_text">15分</span>
+      <!-- <span class="nav_text nav_active">分时</span> -->
+      <span class="nav_text nav_active">15分</span>
       <span class="nav_text">1小时</span>
       <span class="nav_text">4小时</span>
       <span class="nav_text">日线</span>

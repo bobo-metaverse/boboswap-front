@@ -8,6 +8,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   @include bg-color(bg);
+  padding-bottom: 65px;
   .title{
     width: 100%;
     height: auto;
@@ -31,7 +32,7 @@
       margin: 0 13px 0 26px;
     }
     .text{
-      font-size: 16px;
+      font-size: 20px;
       font-family: PingFangSC-Semibold, PingFang SC;
       @include text-color(text);
     }
@@ -100,25 +101,25 @@
     align-items: flex-start;
     .list_nav{
       width: calc(100% - 76px);
-      padding: 0 51px 0 38px;
-      border-bottom: 1px solid #0C192B;
+      padding: 0 38px 0 38px;
+      @include border-bottom(1px,list_nav_active);
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
       .nav_text{
-        font-size: 12px;
+        font-size: 14px;
         color: #6D87A8;
         padding: 15px 0 13px;
       }
       .list_nav_active{
-        color: #1882D3;
-        border-bottom: 2px solid #1882D3;
+        color: #4380ff;
+        border-bottom: 2px solid #4380ff;
       }
     }
     .list_box{
       width: 100%;
-      height: 256px;
+      height: auto;
       overflow-y: scroll;
     }
   }
@@ -133,6 +134,7 @@
     align-items: center;
     position: fixed;
     bottom: 0;
+    @include border-top-top(1px,list_nav_active);
     .buy{
       width: 135px;
       height: 42px;
@@ -142,6 +144,7 @@
       color: #fff;
       font-size: 13px;
       text-align: center;
+      font-weight: bold;
     }
     .sell{
       width: 135px;
@@ -152,17 +155,20 @@
       color: #fff;
       font-size: 13px;
       text-align: center;
+      font-weight: bold;
     }
     .collection{
-      width: 46px;
-      height: 42px;
-      border-radius: 5px;
-      border: 1px solid #1B55D1;
-      line-height: 42px;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      span{
+        font-size: 12px;
+        @include text-color(text);
+      }
       i{
-        font-size: 20px;
-        color: #6D87A8;
+        font-size: 22px;
+        @include text-color(text);
       }
     }
     
