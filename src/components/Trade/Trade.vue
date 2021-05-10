@@ -87,6 +87,7 @@
           class="shuliang_input"
           style="font-size: 12px"
           v-model="input"
+          @input="chageSlider"
         ></el-input>
         <span class="filda">FILDA</span>
       </span>
@@ -103,6 +104,7 @@
           :step="20"
           show-stops
           @change="chageInput"
+          style="width: 100%"
         ></el-slider>
         <div class="edu">
           <span>可用额度</span>
@@ -229,6 +231,10 @@ export default {
     chageInput(value) {
       //sliderChage
       this.input = value;
+    },
+    chageSlider(value) {
+      //inputChange
+      this.value2 = Number(value);
     },
     chart() {
       this.$store.dispatch("chageHeader", false);

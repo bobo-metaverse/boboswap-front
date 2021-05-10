@@ -9,6 +9,8 @@
   align-items: flex-start;
   @include bg-color(bg);
   padding-bottom: 65px;
+  position: relative;
+  
   .title{
     width: 100%;
     height: auto;
@@ -20,6 +22,9 @@
     position: fixed;
     z-index: 5000;
     @include bg-color(bg);
+    img{
+      margin-right: 10px;
+    }
     .left_icon{
       margin-left:20px;
       font-size: 25px;

@@ -3,6 +3,8 @@
     <div class="title">
       <i class="iconfont icon-left_2 left_icon" @click="back"></i>
       <span class="line"></span>
+      <img :src="theme == 'dark' ? view_img1 : view_img2" />
+      <!-- <img src="../assets/images/view_img1.png" /> -->
       <span class="text">BTC/USDT</span>
     </div>
     <div class="data">
@@ -57,6 +59,8 @@
   </div>
 </template>
 <script>
+let view_img1 = require("../assets/images/view_img1.png");
+let view_img2 = require("../assets/images/view_img3.png");
 import ChartChild from "../components/Chart/Chart";
 import OrderRegistration from "../components/Chart/OrderRegistration";
 import Introduction from "../components/Chart/Introduction";
@@ -66,7 +70,14 @@ export default {
   data() {
     return {
       list_index: 2,
+      view_img1: view_img1,
+      view_img2: view_img2,
     };
+  },
+  computed: {
+    theme() {
+      return this.$store.state.skin;
+    },
   },
   components: { ChartChild, OrderRegistration, Introduction, Deal },
   methods: {
@@ -74,6 +85,7 @@ export default {
       this.$store.dispatch("chageHeader", true);
       this.$router.push("/home");
     },
+    toggle() {},
   },
 };
 </script>

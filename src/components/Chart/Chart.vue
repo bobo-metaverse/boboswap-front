@@ -2,14 +2,71 @@
   <div class="ChartChild">
     <div class="nav">
       <!-- <span class="nav_text nav_active">分时</span> -->
-      <span class="nav_text nav_active">15分</span>
-      <span class="nav_text">1小时</span>
-      <span class="nav_text">4小时</span>
-      <span class="nav_text">日线</span>
-      <span class="nav_text addicon"
-        ><span>更多</span><i class="iconfont icon-more1"></i
+      <span
+        class="nav_text"
+        :class="selectIndx == 1 ? 'nav_active' : null"
+        @click="changeSelect(15, 'min', 1)"
+        >15分</span
+      >
+      <span
+        class="nav_text"
+        :class="selectIndx == 2 ? 'nav_active' : null"
+        @click="changeSelect(1, 'hour', 2)"
+        >1小时</span
+      >
+      <span
+        class="nav_text"
+        :class="selectIndx == 3 ? 'nav_active' : null"
+        @click="changeSelect(4, 'hour', 3)"
+        >4小时</span
+      >
+      <span
+        class="nav_text"
+        :class="selectIndx == 4 ? 'nav_active' : null"
+        @click="changeSelect(1, 'day', 4)"
+        >1日</span
+      >
+      <span
+        class="nav_text"
+        :class="selectIndx == 5 ? 'nav_active' : null"
+        @click="changeSelect(1, 'week', 5)"
+        >1周</span
+      >
+      <span
+        class="nav_text addicon"
+        :class="{ addicon_active: show3, nav_active: selectIndx == 6 }"
+        @click="show3 = !show3"
+        ><span>{{ selectText }}</span
+        ><i class="iconfont icon-more1"></i
       ></span>
     </div>
+    <el-collapse-transition name="el-fade-in-linear">
+      <div v-show="show3" class="select_box" @click="closeMsg($event)">
+        <div class="box" ref="msk">
+          <span
+            class="box_item"
+            @click="selectHandler(1, 'min', 1)"
+            :class="{ active: box_item_index == 1 }"
+            >1分</span
+          ><span
+            class="box_item"
+            @click="selectHandler(5, 'min', 2)"
+            :class="{ active: box_item_index == 2 }"
+            >5分</span
+          ><span
+            class="box_item"
+            @click="selectHandler(30, 'min', 3)"
+            :class="{ active: box_item_index == 3 }"
+            >30分</span
+          ><span
+            class="box_item"
+            @click="selectHandler(1, 'mounth', 4)"
+            :class="{ active: box_item_index == 4 }"
+            >1月</span
+          >
+        </div>
+      </div>
+    </el-collapse-transition>
     <div class="line"></div>
     <div id="main" style="width: 100%; height: 400px; min-height: 200px"></div>
     <div class="line"></div>
@@ -58,7 +115,12 @@ var downColor = "#ec0000";
 export default {
   name: "ChartChild",
   data() {
-    return {};
+    return {
+      show3: false,
+      selectIndx: 1,
+      selectText: "更多",
+      box_item_index: 0,
+    };
   },
   mounted() {
     this.$nextTick(() => {
@@ -66,9 +128,45 @@ export default {
     });
   },
   methods: {
+    closeMsg(ev) {
+      if (!this.$refs.msk.contains(ev.target)) {
+        this.show3 = false;
+      }
+    },
+    changeSelect(value, type, index) {
+      this.box_item_index = 0;
+      this.selectIndx = index;
+      this.selectText = "更多";
+    },
+    selectHandler(v, wei, index) {
+      let text = "";
+      switch (wei) {
+        case "min":
+          text = "分";
+          break;
+        case "hour":
+          text = "时";
+          break;
+        case "day":
+          text = "天";
+          break;
+        case "week":
+          text = "周";
+          break;
+        case "mounth":
+          text = "月";
+          break;
+      }
+      this.selectText = v + text;
+      this.selectIndx = 6;
+      this.show3 = false;
+      this.box_item_index = index;
+    },
     drawLine() {
       var chartDom = document.getElementById("main");
       let skin = localStorage.getItem("Skin");
+      let bgcolor = "";
+      skin == "dark" ? (bgcolor = "#152131") : (bgcolor = "#fff");
       var myChart = echarts.init(chartDom, skin);
 
       this.$axios
@@ -78,6 +176,7 @@ export default {
           myChart.setOption(
             (option = {
               animation: false,
+              backgroundColor: bgcolor,
               legend: {
                 bottom: 100,
                 data: ["MA5", "MA10", "MA20", "MA30"],
@@ -101,7 +200,6 @@ export default {
                   obj[["left", "right"][+(pos[0] < size.viewSize[0] / 2)]] = 30;
                   return obj;
                 },
-                // extraCssText: 'width: 170px'
               },
               axisPointer: {
                 link: { xAxisIndex: "all" },
@@ -109,16 +207,6 @@ export default {
                   backgroundColor: "#777",
                 },
               },
-              // toolbox: {
-              //   feature: {
-              //     dataZoom: {
-              //       yAxisIndex: false,
-              //     },
-              //     brush: {
-              //       type: ["lineX", "clear"],
-              //     },
-              //   },
-              // },
               visualMap: {
                 show: false,
                 seriesIndex: 5,
@@ -134,28 +222,6 @@ export default {
                   },
                 ],
               },
-              // brush: {
-              //   xAxisIndex: "all",
-              //   brushLink: "all",
-              //   outOfBrush: {
-              //     colorAlpha: 0.1,
-              //   },
-              // },
-              // visualMap: {
-              //   show: false,
-              //   seriesIndex: 5,
-              //   dimension: 2,
-              //   pieces: [
-              //     {
-              //       value: 1,
-              //       color: downColor,
-              //     },
-              //     {
-              //       value: -1,
-              //       color: upColor,
-              //     },
-              //   ],
-              // },
               grid: [
                 {
                   left: 0,
@@ -167,7 +233,7 @@ export default {
                 {
                   left: 0,
                   right: 0,
-                  top: "70%",
+                  top: "75%",
                   height: "16%",
                   width: "100%",
                 },
@@ -209,7 +275,6 @@ export default {
                   type: "value",
                   position: "right",
                   offset: -55,
-                  nameLocation: "end",
                   scale: true,
                   splitArea: {
                     show: true,
@@ -229,14 +294,6 @@ export default {
                 {
                   type: "inside",
                   xAxisIndex: [0, 1],
-                  start: 98,
-                  end: 100,
-                },
-                {
-                  show: true,
-                  xAxisIndex: [0, 1],
-                  type: "slider",
-                  top: "85%",
                   start: 98,
                   end: 100,
                 },
@@ -272,6 +329,7 @@ export default {
                   type: "line",
                   data: this.calculateMA(5, data),
                   smooth: true,
+                  symbol: "none",
                   lineStyle: {
                     opacity: 0.5,
                     width: 1,
@@ -332,7 +390,6 @@ export default {
               },
             ],
           });
-          //myChart.dispatchAction();
         });
 
       option && myChart.setOption(option);
@@ -375,6 +432,6 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../../assets/styles/Chart/ChartChild";
 </style>
