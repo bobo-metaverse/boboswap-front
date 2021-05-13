@@ -7,6 +7,7 @@ import axios from 'axios'
 import qs from 'qs'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import Web3 from 'web3';
 
 require('./assets/font/Source Han Sans CN Regular.css');
 require ('./assets/iconfont/iconfont.css')
@@ -15,6 +16,7 @@ require ('./assets/iconfont/iconfont.css')
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
+Vue.prototype.Web3 = Web3;
 
 axios.defaults.baseURL = '';
 
