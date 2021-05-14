@@ -153,9 +153,13 @@
 body .actived{
   color: #1B55D1 !important;
 }
-.el-drawer__wrapper{
-  z-index: 4001!important;
-}
+// .el-drawer__wrapper{
+//   z-index: 4001!important;
+// }
 .el-drawer__body{
   @include bg-color(el-drawer__body);
+}
+.el-message{
+  min-width: 0;
+ width: 90%;
 }

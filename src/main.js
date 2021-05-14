@@ -16,7 +16,7 @@ require ('./assets/iconfont/iconfont.css')
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
-Vue.prototype.Web3 = Web3;
+
 
 axios.defaults.baseURL = '';
 
@@ -44,6 +44,17 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+//消息提示
+Vue.prototype.toast = function (type,msg){
+  this.$message({
+    showClose: true,
+    message: msg,
+    type:type
+  });
+}
+
+
 
 new Vue({
   router,

@@ -6,6 +6,12 @@ const actions = {
   },
   chageHeader(vuex, v) {
     vuex.commit(TYPES.CHANGE_HEADER, v)
-	},
+  },
+  setAccount(vuex, v) {
+    vuex.commit(TYPES.SET_ACCOUNT,v)
+  },
+  setIsConnected(vuex, v) {
+    vuex.commit(TYPES.SET_ISCONNECTED,v)
+  }
 }
 export default actions

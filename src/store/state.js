@@ -1,5 +1,7 @@
 const state = {
 	skin: localStorage.getItem("Skin"),
-	header: true
+	header: true,
+	account: null,
+	isConnected:null
 }
 export default state

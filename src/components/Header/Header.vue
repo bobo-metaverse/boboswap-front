@@ -6,29 +6,54 @@
       @click="chageDrawer"
     />
     <div class="address">
-      <img src="../../assets/images/addressIcon.png" />
-      <span>0x2164j6…d010</span>
+      <div class="div" v-if="!isConnected" @click="connectWallet">
+        <img :src="theme == 'dark' ? wallet : wallet2" />
+        <span>点击链接钱包</span>
+      </div>
+      <div class="div" v-else>
+        <img src="../../assets/images/addressIcon.png" />
+        <span>{{ account }}</span>
+      </div>
     </div>
   </div>
 </template>
 <script>
 let logo = require("../../assets/images/logo.png");
 let logo2 = require("../../assets/images/logo2.png");
-
+let wallet = require("../../assets/images/wallet.png");
+let wallet2 = require("../../assets/images/wallet2.png");
+import Web3 from "web3";
+import { myMixins } from "../../assets/js/Wallet/ConnectWallet.js";
 export default {
   name: "Header",
+  mixins: [myMixins],
   data() {
     return {
       logo: logo,
       logo2: logo2,
+      wallet: wallet,
+      wallet2: wallet2,
+      //isConnected: this.$store.state.account == "" ? false : true,
+      chainId: null,
+      web3: null,
+      // account: this.$store.state.account,
     };
   },
   computed: {
     theme() {
       return this.$store.state.skin;
     },
+    account() {
+      return this.$store.state.account;
+    },
+    isConnected() {
+      return this.$store.state.isConnected;
+    },
   },
   components: {},
+  // created() {
+  //   console.log(this.$store.state.account);
+  // },
   methods: {
     chageDrawer() {
       this.$emit("chageDrawer");

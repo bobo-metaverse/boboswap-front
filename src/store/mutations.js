@@ -7,5 +7,11 @@ const mutations = {
 	[TYPES.CHANGE_HEADER](state, v) {
 		state.header = v;
 	},
+	[TYPES.SET_ACCOUNT](state, v) {
+		state.account = v;
+	},
+	[TYPES.SET_ISCONNECTED](state, v) {
+		state.isConnected = v;
+	}
 }
 export default mutations
