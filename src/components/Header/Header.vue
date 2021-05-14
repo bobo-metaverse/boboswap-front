@@ -33,10 +33,8 @@ export default {
       logo2: logo2,
       wallet: wallet,
       wallet2: wallet2,
-      //isConnected: this.$store.state.account == "" ? false : true,
       chainId: null,
       web3: null,
-      // account: this.$store.state.account,
     };
   },
   computed: {
@@ -51,9 +49,6 @@ export default {
     },
   },
   components: {},
-  // created() {
-  //   console.log(this.$store.state.account);
-  // },
   methods: {
     chageDrawer() {
       this.$emit("chageDrawer");

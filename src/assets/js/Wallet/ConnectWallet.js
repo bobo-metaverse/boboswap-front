@@ -27,16 +27,25 @@ export const myMixins = {
             } else {
               const chainId = window.ethereum.networkVersion; // 链ID，bsc=56, heco=128
               _this.web3 = new Web3(window.ethereum); // window.ethereum是MetaMask嵌入到浏览器的对象
-              //console.log(_this.web3);
+              console.log(_this.web3);
+              let accountMost = "";
               _this.web3.eth.getAccounts().then((accounts) => {
                 // 获取MetaMask上的当前账号地址accounts[0]]
+                accountMost = accounts[0];//当前账户
                 const account =
                   accounts[0].substr(0, 6) +
                   "..." +
                   accounts[0].substr(accounts[0].length - 3);
                   _this.$store.dispatch("setAccount", account);
-                  _this.$store.dispatch("setIsConnected", true);
+                _this.$store.dispatch("setIsConnected", true);
+                
+                //获取当前账户资产
+                _this.web3.eth.getBalance(accountMost).then((balance) => {
+                  console.log(balance)
+                })
               });
+              
+
 
             }
           } catch (error) {
