@@ -12,6 +12,13 @@ export const myMixins = {
           try {
             // 请求用户授权
             await window.ethereum.enable();
+            // MetaMask地址变化时，要刷新网站
+            ethereum.on("chainChanged", (chainId) => {
+              history.go(0);
+            });// MetaMask地址变化时，要刷新网站
+            ethereum.on("accountsChanged", (chainId) => {
+              history.go(0);
+            });
             if (
               window.ethereum.networkVersion != "56" &&
               window.ethereum.networkVersion != "128"
@@ -31,10 +38,6 @@ export const myMixins = {
                   _this.$store.dispatch("setIsConnected", true);
               });
 
-              // MetaMask地址变化时，要刷新网站
-              ethereum.on("chainChanged", (chainId) => {
-                history.go(0);
-              });
             }
           } catch (error) {
             // 用户不授权时
