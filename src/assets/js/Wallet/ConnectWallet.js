@@ -21,9 +21,10 @@ export const myMixins = {
             });
             if (
               window.ethereum.networkVersion != "56" &&
-              window.ethereum.networkVersion != "128"
+              window.ethereum.networkVersion != "128" &&
+              window.ethereum.networkVersion != "1"
             ) {
-              _this.toast("error","请将MetaMask连接到BSC或Heco网络，否则您无法正常使用本网站")
+              _this.toast("error","请将MetaMask连接到ETH、BSC或Heco网络，否则您无法正常使用本网站")
             } else {
               const chainId = window.ethereum.networkVersion; // 链ID，bsc=56, heco=128
               _this.web3 = new Web3(window.ethereum); // window.ethereum是MetaMask嵌入到浏览器的对象
