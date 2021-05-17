@@ -12,6 +12,9 @@ const mutations = {
 	},
 	[TYPES.SET_ISCONNECTED](state, v) {
 		state.isConnected = v;
+	},
+	[TYPES.SET_CHAINID](state, v) {
+		state.chainId = v;
 	}
 }
 export default mutations

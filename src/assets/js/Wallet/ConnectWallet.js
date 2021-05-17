@@ -27,6 +27,7 @@ export const myMixins = {
               _this.toast("error","请将MetaMask连接到ETH、BSC或Heco网络，否则您无法正常使用本网站")
             } else {
               const chainId = window.ethereum.networkVersion; // 链ID，bsc=56, heco=128
+              _this.$store.dispatch("setChainId", chainId);
               _this.web3 = new Web3(window.ethereum); // window.ethereum是MetaMask嵌入到浏览器的对象
               console.log(_this.web3);
               let accountMost = "";
@@ -39,7 +40,7 @@ export const myMixins = {
                   accounts[0].substr(accounts[0].length - 3);
                   _this.$store.dispatch("setAccount", account);
                 _this.$store.dispatch("setIsConnected", true);
-                
+               
                 //获取当前账户资产
                 _this.web3.eth.getBalance(accountMost).then((balance) => {
                   console.log(balance)

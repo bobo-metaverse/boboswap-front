@@ -12,6 +12,9 @@ import state from "./state"
 	 },
 	 isConnected: (state, getters) => {
 		return state.isConnected
+	 },
+	 chainId:(state, getters) => {
+		return state.chainId
 	 }
 }
 export default(getters)

@@ -58,38 +58,23 @@
     </div>
     <!-- list_data -->
     <div class="list">
-      <div class="list_item">
+      <div
+        class="list_item"
+        v-for="(item, index) in transactionPair"
+        :key="index"
+      >
         <div class="item_left">
-          <div class="text1"><span>FILDA</span><span>/ USDT</span></div>
-          <div class="text2">24H额￥471.14万</div>
-        </div>
-        <div class="item_right">
-          <div class="right_div1">
-            <span>18.1284</span><span>￥4120.72</span>
+          <div class="text1">
+            <span>{{ item.symbol }}</span
+            ><span>/ {{ item.baseTokenName }}</span>
           </div>
-          <span class="right_div2 up">+1.23%</span>
-        </div>
-      </div>
-
-      <div class="list_item">
-        <div class="item_left">
-          <div class="text1"><span>BTC</span><span>/ USDT</span></div>
-          <div class="text2">24H额￥4594.28万</div>
+          <div class="text2">24H额￥***万</div>
         </div>
         <div class="item_right">
-          <div class="right_div1"><span>0.8834</span><span>￥ 5.88</span></div>
-          <span class="right_div2 down">-2.12%</span>
-        </div>
-      </div>
-
-      <div class="list_item">
-        <div class="item_left">
-          <div class="text1"><span>ETH</span><span>/ USDT</span></div>
-          <div class="text2">24H额￥2935.66万</div>
-        </div>
-        <div class="item_right">
-          <div class="right_div1"><span>0.7682</span><span>￥5.12</span></div>
-          <span class="right_div2 up">+4.12%</span>
+          <div class="right_div1"><span>--</span><span>￥**</span></div>
+          <span class="right_div2" :class="item.high24h > 0 ? 'up' : 'down'"
+            >{{ item.high24h > 0 ? "+" : null }}{{ item.high24h }}%</span
+          >
         </div>
       </div>
     </div>
@@ -100,8 +85,19 @@ export default {
   name: "Quotation",
   data() {
     return {
-      activeIndex: 1, //1:自选，2：HT,3:USDT
+      activeIndex: 2, //1:自选，2：HT,3:USDT
+      list: [],
+      transactionPair: [],
     };
+  },
+  computed: {
+    chainId() {
+      return this.$store.state.chainId;
+    },
+  },
+  created() {
+    console.log(this.chainId);
+    this.getQuotation();
   },
   methods: {
     chageActiveIndex(index) {
@@ -110,6 +106,49 @@ export default {
     goSearch() {
       this.$store.dispatch("chageHeader", false);
       this.$router.push("/search");
+    },
+    filerArry(arr1, arr2) {
+      let newArr = [];
+      for (let i = 0; i < arr2.length; i++) {
+        for (let j = 0; j < arr1.length; j++) {
+          if (arr1[j] === arr2[i].address) {
+            newArr.push(arr2[i]);
+          }
+        }
+      }
+      return newArr;
+    },
+
+    getQuotation() {
+      const _this = this;
+      this.$axios.get(this.$API.getQuotation).then((quotation) => {
+        //console.log(quotation);
+        let chainId = _this.chainId.toString();
+        _this.list = quotation.data[chainId];
+
+        _this.list.pairs.map((item1) => {
+          const list = _this.filerArry(item1.peerTokens, _this.list.assets);
+          list.map((item) => {
+            item.baseTokenAddr = item1.baseTokenAddr;
+            item.baseTokenName = item1.baseTokenName;
+            item.coingecko_currency = item1.coingecko_currency;
+            //
+            //24H涨跌幅
+            let url =
+              _this.$API.getRiseFall +
+              "vs_currency=" +
+              item.coingecko_currency +
+              "&ids=" +
+              item.coingeckoId;
+            _this.$axios.get(url).then((res) => {
+              // console.log(res.data[0].high_24h);
+              item.high24h = res.data[0].price_change_percentage_24h.toFixed(2);
+              _this.transactionPair.push(item);
+            });
+          });
+        });
+        console.log(_this.transactionPair);
+      });
     },
   },
 };

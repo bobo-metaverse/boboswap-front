@@ -12,6 +12,9 @@ const actions = {
   },
   setIsConnected(vuex, v) {
     vuex.commit(TYPES.SET_ISCONNECTED,v)
-  }
+  },
+  setChainId(vuex, v) {
+    vuex.commit(TYPES.SET_CHAINID,v)
+  },
 }
 export default actions
