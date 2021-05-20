@@ -2,20 +2,13 @@
   <div class="quotation">
     <div class="quotation_nav">
       <div class="nav_left">
+        <span>自选</span>
         <span
-          :class="activeIndex == 1 ? 'active' : null"
-          @click="chageActiveIndex(1)"
-          >自选</span
-        >
-        <span
-          :class="activeIndex == 2 ? 'active' : null"
-          @click="chageActiveIndex(2)"
-          >HT</span
-        >
-        <span
-          :class="activeIndex == 3 ? 'active' : null"
-          @click="chageActiveIndex(3)"
-          >USDT</span
+          v-for="(item, index) in TypeList"
+          :key="index"
+          :class="activeIndex == index ? 'active' : null"
+          @click="chageActiveIndex(index)"
+          >{{ item.id }}</span
         >
       </div>
       <img src="../../assets/images/search.png" @click="goSearch" />
@@ -57,12 +50,13 @@
       </div>
     </div>
     <!-- list_data -->
-    <div class="list">
-      <div
-        class="list_item"
-        v-for="(item, index) in transactionPair"
-        :key="index"
-      >
+    <div
+      class="list"
+      v-for="(list, listIndex) in TypeList"
+      :key="listIndex"
+      v-show="listIndex == activeIndex"
+    >
+      <div class="list_item" v-for="(item, index) in list.data" :key="index">
         <div class="item_left">
           <div class="text1">
             <span>{{ item.symbol }}</span
@@ -81,13 +75,13 @@
   </div>
 </template>
 <script>
+const aa = [];
 export default {
   name: "Quotation",
   data() {
     return {
-      activeIndex: 2, //1:自选，2：HT,3:USDT
-      list: [],
-      transactionPair: [],
+      TypeList: [],
+      activeIndex: 0, //1:自选，2：HT,3:USDT
     };
   },
   computed: {
@@ -95,10 +89,31 @@ export default {
       return this.$store.state.chainId;
     },
   },
-  created() {
-    console.log(this.chainId);
-    this.getQuotation();
+  async created() {
+    //console.log(this.chainId);
+    //console.log(this.$store.state.hangqing);
+    let data = this.$store.state.hangqing;
+    let map = {};
+    if (data.length > 0) {
+      for (let i = 0; i < data.length; i++) {
+        let ai = data[i];
+        if (!map[ai.baseTokenName]) {
+          map[ai.baseTokenName] = [ai];
+        } else {
+          map[ai.baseTokenName].push(ai);
+        }
+      }
+      let res = [];
+      Object.keys(map).forEach((key) => {
+        res.push({
+          id: key,
+          data: map[key],
+        });
+      });
+      this.TypeList = res;
+    }
   },
+
   methods: {
     chageActiveIndex(index) {
       this.activeIndex = index;
@@ -106,49 +121,6 @@ export default {
     goSearch() {
       this.$store.dispatch("chageHeader", false);
       this.$router.push("/search");
-    },
-    filerArry(arr1, arr2) {
-      let newArr = [];
-      for (let i = 0; i < arr2.length; i++) {
-        for (let j = 0; j < arr1.length; j++) {
-          if (arr1[j] === arr2[i].address) {
-            newArr.push(arr2[i]);
-          }
-        }
-      }
-      return newArr;
-    },
-
-    getQuotation() {
-      const _this = this;
-      this.$axios.get(this.$API.getQuotation).then((quotation) => {
-        //console.log(quotation);
-        let chainId = _this.chainId.toString();
-        _this.list = quotation.data[chainId];
-
-        _this.list.pairs.map((item1) => {
-          const list = _this.filerArry(item1.peerTokens, _this.list.assets);
-          list.map((item) => {
-            item.baseTokenAddr = item1.baseTokenAddr;
-            item.baseTokenName = item1.baseTokenName;
-            item.coingecko_currency = item1.coingecko_currency;
-            //
-            //24H涨跌幅
-            let url =
-              _this.$API.getRiseFall +
-              "vs_currency=" +
-              item.coingecko_currency +
-              "&ids=" +
-              item.coingeckoId;
-            _this.$axios.get(url).then((res) => {
-              // console.log(res.data[0].high_24h);
-              item.high24h = res.data[0].price_change_percentage_24h.toFixed(2);
-              _this.transactionPair.push(item);
-            });
-          });
-        });
-        console.log(_this.transactionPair);
-      });
     },
   },
 };

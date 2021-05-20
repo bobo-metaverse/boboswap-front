@@ -9,6 +9,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import Web3 from 'web3';
 import API from './assets/js/Common/API';
+import Base from './assets/js/Common/base';
 
 require('./assets/font/Source Han Sans CN Regular.css');
 require ('./assets/iconfont/iconfont.css')
@@ -18,7 +19,7 @@ Vue.use(ElementUI);
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 Vue.prototype.$API = API
-
+Vue.prototype.$Base = Base
 
 axios.defaults.baseURL = '';
 

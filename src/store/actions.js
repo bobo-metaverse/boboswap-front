@@ -16,5 +16,8 @@ const actions = {
   setChainId(vuex, v) {
     vuex.commit(TYPES.SET_CHAINID,v)
   },
+  getHangQing(vuex, v) {
+    vuex.commit(TYPES.GET_HANGQING,v)
+  }
 }
 export default actions

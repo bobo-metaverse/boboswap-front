@@ -3,6 +3,8 @@ const state = {
 	header: true,
 	account: null,
 	isConnected: null,
-	chainId:null
+	chainId: null,
+	hangqing: [],
+	
 }
 export default state

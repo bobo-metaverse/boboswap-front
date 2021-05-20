@@ -13,8 +13,9 @@ export default {
     };
   },
   mixins: [myMixins],
-  created() {
-    this.connectWallet();
+  async created() {
+    await this.connectWallet();
+    this.$store.dispatch("getHangQing");
   },
   methods: {},
   components: {},
