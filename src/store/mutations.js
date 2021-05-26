@@ -24,30 +24,43 @@ const mutations = {
 		axios.get(API.getQuotation).then((quotation) => {
 			//console.log(quotation)
 			const list = quotation.data[chainId];
-			let assets = list.assets;
-			list.pairs.map((item1) => {
-				const FilerArry = BASEJS.filerArry(item1.peerTokens,assets);
-				FilerArry.map((item) => {
-					item.baseTokenAddr = item1.baseTokenAddr;
-					item.baseTokenName = item1.baseTokenName;
-					item.coingecko_currency = item1.coingecko_currency;
+			let assets = {};
+			list.assets.map(asset => {
+				assets[asset.address] = asset;
+			})
+			console.log('assets', assets)
+			//list.pairs.map(async (pairBaseInfo) => {
+				//const FilerArry = BASEJS.filerArry(item1.peerTokens,assets);
+				//pairBaseInfo.peerTokens.map(async (peerAddr) => {
+			for (var i = 0; i < list.pairs.length; i++) {
+				const pairBaseInfo = list.pairs[i];
+				for (var j = 0; j < pairBaseInfo.peerTokens.length; j++) {
+					const peerAddr = pairBaseInfo.peerTokens[j];
+					const pairInfo = JSON.parse(JSON.stringify(assets[peerAddr]));
+					if (pairInfo == null) return;
+					pairInfo.baseTokenAddr = pairBaseInfo.baseTokenAddr;
+					pairInfo.baseTokenName = pairBaseInfo.baseTokenName;
+					pairInfo.coingecko_currency = pairBaseInfo.coingecko_currency;
+					console.log(pairInfo.symbol + '/' + pairInfo.baseTokenName);
 					//
 					//24H涨跌幅
 					let url =
 						API.getRiseFall +
 						"vs_currency=" +
-						item.coingecko_currency +
+						pairInfo.coingecko_currency +
 						"&ids=" +
-						item.coingeckoId;
+						pairInfo.coingeckoId;
 					axios.get(url).then((res) => {
-						// console.log(res.data[0].high_24h);
-						item.high24h = res.data[0].price_change_percentage_24h.toFixed(2);
-						state.hangqing.push(item);
-						//aa.push(item);
+						pairInfo.high24h = res.data[0].price_change_percentage_24h.toFixed(2);
+						state.hangqing.push(pairInfo);
+						console.log('>>>>' + pairInfo.symbol + '/' + pairInfo.baseTokenName);						
 					});
-				});
-			});
-		})
+				}
+			}
+			state.hangqing.map(hangqing => console.log(hangqing.symbol + '/' + hangqing.baseTokenName));
+		});
+			//});
+		//})
 	}
 }
 export default mutations
