@@ -41,7 +41,6 @@ const mutations = {
 					pairInfo.baseTokenAddr = pairBaseInfo.baseTokenAddr;
 					pairInfo.baseTokenName = pairBaseInfo.baseTokenName;
 					pairInfo.coingecko_currency = pairBaseInfo.coingecko_currency;
-					console.log(pairInfo.symbol + '/' + pairInfo.baseTokenName);
 					//
 					//24H涨跌幅
 					let url =
@@ -52,12 +51,10 @@ const mutations = {
 						pairInfo.coingeckoId;
 					axios.get(url).then((res) => {
 						pairInfo.high24h = res.data[0].price_change_percentage_24h.toFixed(2);
-						state.hangqing.push(pairInfo);
-						console.log('>>>>' + pairInfo.symbol + '/' + pairInfo.baseTokenName);						
+						state.hangqing.push(pairInfo);					
 					});
 				}
 			}
-			state.hangqing.map(hangqing => console.log(hangqing.symbol + '/' + hangqing.baseTokenName));
 		});
 			//});
 		//})
