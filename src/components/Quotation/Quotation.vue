@@ -34,7 +34,7 @@
 
       <div class="filter_left">
         <div class="left_box">
-          <span class="text">最新价</span>
+          <span class="text">聚合价</span>
           <span class="filter_imgs">
             <i class="iconfont icon-up"></i>
             <i class="iconfont icon-down"></i>
@@ -56,7 +56,7 @@
       :key="listIndex"
       v-show="listIndex == activeIndex"
     >
-      <div class="list_item" v-for="(item, index) in list.data" :key="index">
+      <div class="list_item" v-for="(item, index) in list.data" :key="index" @click="openTradePage(item)">
         <div class="item_left">
           <div class="text1">
             <span>{{ item.symbol }}</span
@@ -78,6 +78,7 @@
 const aa = [];
 export default {
   name: "Quotation",
+  props: ["openTrade"],
   data() {
     return {
       TypeList: [],
@@ -122,6 +123,9 @@ export default {
       this.$store.dispatch("chageHeader", false);
       this.$router.push("/search");
     },
+    openTradePage(pairInfo) {
+      this.openTrade(pairInfo);
+    }
   },
 };
 </script>

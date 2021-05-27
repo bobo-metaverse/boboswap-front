@@ -4,17 +4,17 @@
       <div class="type">
         <div class="type_left">
           <span class="type_text">卖出</span
-          ><span class="type_asset"> FILDA/USDT </span>
+          ><span class="type_asset"> {{peerToken}}/{{baseToken}} </span>
         </div>
         <span class="chexiao">撤销</span>
       </div>
       <div class="data_info">
         <div class="small_box">
-          <span class="info_title">价格(USDT)</span>
-          <span class="info_num">11111. 0000</span>
+          <span class="info_title">价格({{baseToken}})</span>
+          <span class="info_num">11111.0000</span>
         </div>
         <div class="small_box">
-          <span class="info_title">数量(HT)</span>
+          <span class="info_title">数量({{peerToken}})</span>
           <span class="info_num">1.00</span>
         </div>
         <div class="small_box info_time">
@@ -27,9 +27,11 @@
 </template>
 <script>
 export default {
+  props: ['peerToken', 'baseToken'],
   name: "CurrentEntrust",
   data() {
-    return {};
+    return {
+    };
   },
   methods: {},
 };

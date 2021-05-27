@@ -28,16 +28,16 @@ const mutations = {
 			list.assets.map(asset => {
 				assets[asset.address] = asset;
 			})
-			console.log('assets', assets)
-			//list.pairs.map(async (pairBaseInfo) => {
-				//const FilerArry = BASEJS.filerArry(item1.peerTokens,assets);
-				//pairBaseInfo.peerTokens.map(async (peerAddr) => {
 			for (var i = 0; i < list.pairs.length; i++) {
 				const pairBaseInfo = list.pairs[i];
 				for (var j = 0; j < pairBaseInfo.peerTokens.length; j++) {
 					const peerAddr = pairBaseInfo.peerTokens[j];
+					//var pairInfo = assets[peerAddr];
+					if (assets[peerAddr] == null) {
+						console.log(peerAddr + ' has no token info.')
+						return;
+					}
 					const pairInfo = JSON.parse(JSON.stringify(assets[peerAddr]));
-					if (pairInfo == null) return;
 					pairInfo.baseTokenAddr = pairBaseInfo.baseTokenAddr;
 					pairInfo.baseTokenName = pairBaseInfo.baseTokenName;
 					pairInfo.coingecko_currency = pairBaseInfo.coingecko_currency;
@@ -50,6 +50,10 @@ const mutations = {
 						"&ids=" +
 						pairInfo.coingeckoId;
 					axios.get(url).then((res) => {
+						if (pairInfo == null) {
+							console.log(url, res);
+							return;
+						}
 						pairInfo.high24h = res.data[0].price_change_percentage_24h.toFixed(2);
 						state.hangqing.push(pairInfo);					
 					});

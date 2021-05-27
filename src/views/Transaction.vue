@@ -10,8 +10,8 @@
         >矿池</span
       >
     </div>
-    <Quotation v-if="navIndx == 1" />
-    <Trade v-if="navIndx == 2" />
+    <Quotation v-if="navIndx == 1" :openTrade="openTrade"/>
+    <Trade v-if="navIndx == 2" :pairInfo="pairInfo" :peerToken="pairInfo.symbol" :baseToken="pairInfo.baseTokenName"/>
     <Pool v-if="navIndx == 3" />
   </div>
 </template>
@@ -24,10 +24,17 @@ export default {
   components: { Trade, Quotation, Pool },
   data() {
     return {
-      navIndx: 2, //行情1，交易2，矿池3
+      navIndx: 1, //行情1，交易2，矿池3
+      pairInfo: ''
     };
   },
-  methods: {},
+  methods: {
+    openTrade(pairInfo) {
+      console.log(pairInfo);
+      this.navIndx = 2;
+      this.pairInfo = pairInfo;
+    }
+  },
 };
 </script>
 <style lang="scss">

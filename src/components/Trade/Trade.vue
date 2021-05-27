@@ -3,7 +3,7 @@
     <div class="trade_view">
       <div class="view_left">
         <!-- <img :src="theme == 'dark' ? view_img1 : view_img2" /> -->
-        <span class="assets">FILDA/USDT</span>
+        <span class="assets">{{peerToken}}/{{baseToken}}</span>
         <span class="rate">-38.37%</span>
       </div>
       <div class="view_right">
@@ -89,7 +89,7 @@
           v-model="input"
           @input="chageSlider"
         ></el-input>
-        <span class="filda">FILDA</span>
+        <span class="peer_token">{{peerToken}}</span>
       </span>
       <div class="shuliang_right">
         <span class="text_num">0.7727</span>
@@ -109,13 +109,13 @@
         <div class="edu">
           <span>可用额度</span>
           <span>
-            {{ buy_sell ? " 0.00849345 USDT" : "49644.254894 FILDA" }}</span
+            {{ buy_sell ? (" 0.00849345 " + baseToken) : ("49644.254894 " + peerToken) }}</span
           >
         </div>
         <div class="edu">
           <span>预计获得</span>
           <span>
-            {{ buy_sell ? "49644.254894 FILDA" : " 0.00849345 USDT" }}</span
+            {{ buy_sell ? ("49644.254894 " + peerToken) : (" 0.00849345 " + baseToken) }}</span
           >
         </div>
         <div class="edu">
@@ -156,8 +156,8 @@
         </div>
       </div>
     </div>
-    <div :class="buy_sell ? 'buy_FILDA' : 'sell_FILDA'">
-      {{ buy_sell ? "买入" : "卖出" }} FILDA
+    <div :class="buy_sell ? 'buy_peer_token' : 'sell_peer_token'">
+      {{ buy_sell ? "买入" : "卖出" }} {{peerToken}}
     </div>
     <div class="waring_tips">
       <img src="../../assets/images/waring_icon.png" />
@@ -176,7 +176,7 @@
           >成交记录</span
         >
       </div>
-      <CurrentEntrust v-if="listInde" />
+      <CurrentEntrust v-if="listInde" :peerToken="peerToken" :baseToken="baseToken"/>
       <TransactionRecord v-else />
       <el-dialog
         title="交易设置"
@@ -198,6 +198,7 @@ import TransactionRecord from "./TransactionRecord";
 import SlidingPointDialog from "./SlidingPointSetingDialog";
 export default {
   name: "Trade",
+  props: ["pairInfo", "peerToken", "baseToken"],
   data() {
     return {
       buy_sell: true,
@@ -218,7 +219,7 @@ export default {
           label: "限价委托",
         },
       ],
-      value: "",
+      value: ""
     };
   },
   computed: {
