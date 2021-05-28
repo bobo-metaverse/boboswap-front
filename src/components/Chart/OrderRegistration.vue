@@ -1,8 +1,8 @@
 <template>
   <div class="OrderRegistration">
     <div class="thead">
-      <span>买盘 数量(BTC)</span><span>价格(USDT)</span
-      ><span>数量(BTC) 卖盘</span>
+      <span>买盘 数量({{pairInfo.symbol}})</span><span>价格({{pairInfo.baseTokenName}})</span
+      ><span>数量({{pairInfo.symbol}}) 卖盘</span>
     </div>
     <div class="tdata">
       <div class="td_left"><span>1</span><span>0.750656</span></div>
@@ -15,7 +15,12 @@
 export default {
   name: "OrderRegistration",
   data() {
-    return {};
+    return {
+      pairInfo: {}
+    };
+  },
+  created:function() {
+    this.pairInfo = JSON.parse(localStorage.getItem("CurPairInfo"));
   },
   methods: {},
 };

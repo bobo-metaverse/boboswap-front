@@ -2,7 +2,7 @@
   <div class="Deal">
     <div class="thead">
       <span class="fixed_width">时间</span><span class="fixed_width">方向</span
-      ><span>价格(USDT)</span><span>数量(TNB)</span>
+      ><span>价格({{pairInfo.baseTokenName}})</span><span>数量({{pairInfo.symbol}})</span>
     </div>
     <div class="td_data">
       <span class="time">18:03:24</span>
@@ -22,7 +22,12 @@
 export default {
   name: "Deal",
   data() {
-    return {};
+    return {
+      pairInfo: {}
+    };
+  },
+  created:function() {
+    this.pairInfo = JSON.parse(localStorage.getItem("CurPairInfo"));
   },
   methods: {},
 };

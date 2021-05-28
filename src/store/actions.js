@@ -18,6 +18,9 @@ const actions = {
   },
   getHangQing(vuex, v) {
     vuex.commit(TYPES.GET_HANGQING,v)
+  },
+  getTradeInfo(vuex, v) {
+    vuex.commit(TYPES.GET_TRADEINFO,v)
   }
 }
 export default actions

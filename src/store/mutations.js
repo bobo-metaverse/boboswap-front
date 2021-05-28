@@ -20,6 +20,7 @@ const mutations = {
 		state.chainId = v;
 	},
 	[TYPES.GET_HANGQING](state, v) {
+		state.hangqing = [];
 		let chainId = state.chainId.toString()
 		axios.get(API.getQuotation).then((quotation) => {
 			//console.log(quotation)
@@ -43,12 +44,7 @@ const mutations = {
 					pairInfo.coingecko_currency = pairBaseInfo.coingecko_currency;
 					//
 					//24H涨跌幅
-					let url =
-						API.getRiseFall +
-						"vs_currency=" +
-						pairInfo.coingecko_currency +
-						"&ids=" +
-						pairInfo.coingeckoId;
+					let url = API.getRiseFall + "vs_currency=" + pairInfo.coingecko_currency + "&ids=" + pairInfo.coingeckoId;
 					axios.get(url).then((res) => {
 						if (pairInfo == null) {
 							console.log(url, res);
@@ -60,8 +56,37 @@ const mutations = {
 				}
 			}
 		});
-			//});
-		//})
+	},
+	[TYPES.GET_TRADEINFO](state, v) {
+		let coingeckoMap = {};
+		let id2PairMap = {};
+		state.hangqing.map(pairInfo => {
+			if (id2PairMap[pairInfo.coingecko_currency + '-' + pairInfo.coingeckoId] == null) {
+				id2PairMap[pairInfo.coingecko_currency + '-' + pairInfo.coingeckoId] = [];
+				id2PairMap[pairInfo.coingecko_currency + '-' + pairInfo.coingeckoId].push(pairInfo);
+			} else {
+				id2PairMap[pairInfo.coingecko_currency + '-' + pairInfo.coingeckoId].push(pairInfo);
+			}
+
+			if (coingeckoMap[pairInfo.coingecko_currency] == null) {
+				coingeckoMap[pairInfo.coingecko_currency] = [];
+				coingeckoMap[pairInfo.coingecko_currency].push(pairInfo.coingeckoId);
+			} else {
+				coingeckoMap[pairInfo.coingecko_currency].push(pairInfo.coingeckoId);
+			}
+		});
+		Object.keys(coingeckoMap).forEach((currency) => {
+			let coingeckoIds = coingeckoMap[currency].join();
+			let url = API.getRiseFall + "vs_currency=" + currency + "&ids=" + coingeckoIds;
+			axios.get(url).then((marketInfo) => {
+				marketInfo.data.map(item => {
+					id2PairMap[currency + '-' + item.id].map(onePairInfo => {
+						onePairInfo.high24h = item.price_change_percentage_24h.toFixed(2);	
+					})
+					
+				})
+			});
+		});
 	}
 }
 export default mutations

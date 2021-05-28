@@ -75,6 +75,8 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
+
 const aa = [];
 export default {
   name: "Quotation",
@@ -82,7 +84,10 @@ export default {
   data() {
     return {
       TypeList: [],
+      intervalId: 0,
       activeIndex: 0, //1:自选，2：HT,3:USDT
+      syncCount: 0,
+      intervalTime: 1000,
     };
   },
   computed: {
@@ -93,29 +98,37 @@ export default {
   async created() {
     //console.log(this.chainId);
     //console.log(this.$store.state.hangqing);
-    let data = this.$store.state.hangqing;
-    let map = {};
-    if (data.length > 0) {
-      for (let i = 0; i < data.length; i++) {
-        let ai = data[i];
-        if (!map[ai.baseTokenName]) {
-          map[ai.baseTokenName] = [ai];
-        } else {
-          map[ai.baseTokenName].push(ai);
-        }
-      }
-      let res = [];
-      Object.keys(map).forEach((key) => {
-        res.push({
-          id: key,
-          data: map[key],
-        });
-      });
-      this.TypeList = res;
-    }
+    this.intervalId = setInterval(this.showPairList, 1000);
   },
 
   methods: {
+    showPairList() {
+      let pairInfos = this.$store.state.hangqing;
+      let map = {};
+      if (pairInfos.length > 0) {
+        this.syncCount++;
+        if (this.syncCount == 5) {
+          clearInterval(this.intervalId);
+          this.intervalId = setInterval(this.showPairList, 15000);
+        }
+        for (let i = 0; i < pairInfos.length; i++) {
+          let ai = pairInfos[i];
+          if (!map[ai.baseTokenName]) {
+            map[ai.baseTokenName] = [ai];
+          } else {
+            map[ai.baseTokenName].push(ai);
+          }
+        }
+        let res = [];
+        Object.keys(map).forEach((key) => {
+          res.push({
+            id: key,
+            data: map[key],
+          });
+        });
+        this.TypeList = res;
+      }
+    },
     chageActiveIndex(index) {
       this.activeIndex = index;
     },
@@ -124,6 +137,7 @@ export default {
       this.$router.push("/search");
     },
     openTradePage(pairInfo) {
+		  localStorage.setItem("CurPairInfo", JSON.stringify(pairInfo));
       this.openTrade(pairInfo);
     }
   },

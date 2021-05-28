@@ -5,7 +5,7 @@
       <span class="line"></span>
       <img :src="theme == 'dark' ? view_img1 : view_img2" />
       <!-- <img src="../assets/images/view_img1.png" /> -->
-      <span class="text">BTC/USDT</span>
+      <span class="text">{{pairInfo.symbol}}/{{pairInfo.baseTokenName}}</span>
     </div>
     <div class="data">
       <div class="data_left">
@@ -36,7 +36,7 @@
           @click="list_index = 2"
           >成交</span
         >
-        <span
+        <span v-if="pairInfo.introduce != null"
           class="nav_text"
           :class="list_index == 3 ? 'list_nav_active' : null"
           @click="list_index = 3"
@@ -72,6 +72,7 @@ export default {
       list_index: 2,
       view_img1: view_img1,
       view_img2: view_img2,
+      pairInfo: {}
     };
   },
   computed: {
@@ -79,11 +80,15 @@ export default {
       return this.$store.state.skin;
     },
   },
+  created:function() {
+    this.pairInfo = JSON.parse(localStorage.getItem("CurPairInfo"));
+  },
   components: { ChartChild, OrderRegistration, Introduction, Deal },
   methods: {
     back() {
       this.$store.dispatch("chageHeader", true);
-      this.$router.push("/home");
+      //this.$router.push("/home");
+      this.$router.go(-1);
     },
     toggle() {},
   },

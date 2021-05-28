@@ -16,6 +16,9 @@ export default {
   async created() {
     await this.connectWallet();
     this.$store.dispatch("getHangQing");
+    setInterval(() => {
+      this.$store.dispatch("getTradeInfo");
+    }, 15000);
   },
   methods: {},
   components: {},

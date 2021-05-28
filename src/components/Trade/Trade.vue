@@ -3,8 +3,8 @@
     <div class="trade_view">
       <div class="view_left">
         <!-- <img :src="theme == 'dark' ? view_img1 : view_img2" /> -->
-        <span class="assets">{{peerToken}}/{{baseToken}}</span>
-        <span class="rate">-38.37%</span>
+        <span class="assets">{{pairInfo.symbol}}/{{pairInfo.baseTokenName}}</span>
+        <span class="rate">{{ pairInfo.high24h > 0 ? "+" : null }}{{ pairInfo.high24h }}%</span>
       </div>
       <div class="view_right">
         <img src="../../assets/images/view_img2.png" @click="chart" />
@@ -89,7 +89,7 @@
           v-model="input"
           @input="chageSlider"
         ></el-input>
-        <span class="peer_token">{{peerToken}}</span>
+        <span class="peer_token">{{pairInfo.symbol}}</span>
       </span>
       <div class="shuliang_right">
         <span class="text_num">0.7727</span>
@@ -109,13 +109,13 @@
         <div class="edu">
           <span>可用额度</span>
           <span>
-            {{ buy_sell ? (" 0.00849345 " + baseToken) : ("49644.254894 " + peerToken) }}</span
+            {{ buy_sell ? (" 0.00849345 " + pairInfo.baseTokenName) : ("49644.254894 " + pairInfo.symbol) }}</span
           >
         </div>
         <div class="edu">
           <span>预计获得</span>
           <span>
-            {{ buy_sell ? ("49644.254894 " + peerToken) : (" 0.00849345 " + baseToken) }}</span
+            {{ buy_sell ? ("49644.254894 " + pairInfo.symbol) : (" 0.00849345 " + pairInfo.baseTokenName) }}</span
           >
         </div>
         <div class="edu">
@@ -157,7 +157,7 @@
       </div>
     </div>
     <div :class="buy_sell ? 'buy_peer_token' : 'sell_peer_token'">
-      {{ buy_sell ? "买入" : "卖出" }} {{peerToken}}
+      {{ buy_sell ? "买入" : "卖出" }} {{pairInfo.symbol}}
     </div>
     <div class="waring_tips">
       <img src="../../assets/images/waring_icon.png" />
@@ -176,7 +176,7 @@
           >成交记录</span
         >
       </div>
-      <CurrentEntrust v-if="listInde" :peerToken="peerToken" :baseToken="baseToken"/>
+      <CurrentEntrust v-if="listInde"/>
       <TransactionRecord v-else />
       <el-dialog
         title="交易设置"
@@ -198,7 +198,6 @@ import TransactionRecord from "./TransactionRecord";
 import SlidingPointDialog from "./SlidingPointSetingDialog";
 export default {
   name: "Trade",
-  props: ["pairInfo", "peerToken", "baseToken"],
   data() {
     return {
       buy_sell: true,
@@ -219,8 +218,12 @@ export default {
           label: "限价委托",
         },
       ],
-      value: ""
+      value: "",
+      pairInfo: {}
     };
+  },
+  created:function() {
+    this.pairInfo = JSON.parse(localStorage.getItem("CurPairInfo"));
   },
   computed: {
     theme() {

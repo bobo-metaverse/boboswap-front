@@ -11,7 +11,7 @@
       >
     </div>
     <Quotation v-if="navIndx == 1" :openTrade="openTrade"/>
-    <Trade v-if="navIndx == 2" :pairInfo="pairInfo" :peerToken="pairInfo.symbol" :baseToken="pairInfo.baseTokenName"/>
+    <Trade v-if="navIndx == 2"/>
     <Pool v-if="navIndx == 3" />
   </div>
 </template>
@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     openTrade(pairInfo) {
-      console.log(pairInfo);
+      //console.log(pairInfo);
       this.navIndx = 2;
       this.pairInfo = pairInfo;
     }
