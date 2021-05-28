@@ -2,7 +2,7 @@
   <div class="quotation">
     <div class="quotation_nav">
       <div class="nav_left">
-        <span>自选</span>
+        <!-- <span>自选</span> -->
         <span
           v-for="(item, index) in TypeList"
           :key="index"
@@ -86,8 +86,7 @@ export default {
       TypeList: [],
       intervalId: 0,
       activeIndex: 0, //1:自选，2：HT,3:USDT
-      syncCount: 0,
-      intervalTime: 1000,
+      syncCount: 0
     };
   },
   computed: {
@@ -136,9 +135,9 @@ export default {
       this.$store.dispatch("chageHeader", false);
       this.$router.push("/search");
     },
-    openTradePage(pairInfo) {
-		  localStorage.setItem("CurPairInfo", JSON.stringify(pairInfo));
-      this.openTrade(pairInfo);
+    openTradePage(curPairInfo) {
+		  localStorage.setItem("CurPairInfo", JSON.stringify(curPairInfo));
+      this.openTrade(curPairInfo);
     }
   },
 };

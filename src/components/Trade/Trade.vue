@@ -219,11 +219,20 @@ export default {
         },
       ],
       value: "",
-      pairInfo: {}
+      pairInfo: {},
+      pairIntervalId: 0
     };
   },
   created:function() {
     this.pairInfo = JSON.parse(localStorage.getItem("CurPairInfo"));
+          
+    this.pairIntervalId = setInterval(() => {
+      let pairInfos = this.$store.state.hangqing.filter(pairInfo => (pairInfo.symbol == this.pairInfo.symbol) && (pairInfo.baseTokenName == this.pairInfo.baseTokenName));
+      this.pairInfo.high24h =  pairInfos[0].high24h;
+    }, 3000);
+  },
+  beforeDestroy() {
+    clearInterval(this.pairIntervalId);
   },
   computed: {
     theme() {
