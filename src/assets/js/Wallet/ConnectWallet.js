@@ -34,11 +34,8 @@ export const myMixins = {
               _this.web3.eth.getAccounts().then((accounts) => {
                 // 获取MetaMask上的当前账号地址accounts[0]]
                 accountMost = accounts[0];//当前账户
-                const account =
-                  accounts[0].substr(0, 6) +
-                  "..." +
-                  accounts[0].substr(accounts[0].length - 3);
-                  _this.$store.dispatch("setAccount", account);
+                const account = accounts[0];
+                _this.$store.dispatch("setAccount", account);
                 _this.$store.dispatch("setIsConnected", true);
                
                 //获取当前账户资产

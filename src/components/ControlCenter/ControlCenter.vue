@@ -6,11 +6,11 @@
         <span @click="connectWallet">点击连接钱包</span>
         <i class="iconfont icon-right"></i>
       </div>
-      <div class="welcomen_text">欢迎来到BoBoswap</div>
+      <div class="welcomen_text">欢迎来到BoboSwap</div>
     </div>
     <div class="user_center" v-else>
       <img src="../../assets/images/user_center_img.png" />
-      <span class="address">{{ account }}</span>
+      <span class="address">{{ account.substr(0, 6) + "..." + account.substr(account.length - 3) }}</span>
       <span class="total_asset">账户总资产折合(USDT)</span>
       <span class="total_num">0.00000000</span>
       <span class="total_asset">≈0.00(RMB)</span>

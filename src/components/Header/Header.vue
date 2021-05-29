@@ -12,7 +12,7 @@
       </div>
       <div class="div" v-else>
         <img src="../../assets/images/addressIcon.png" />
-        <span>{{ account }}</span>
+        <span>{{ account.substr(0, 6) + "..." + account.substr(account.length - 3) }}</span>
       </div>
     </div>
   </div>
