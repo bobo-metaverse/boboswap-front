@@ -5,6 +5,8 @@
 </template>
 <script>
 import Web3 from "web3";
+import { Drizzle } from "@drizzle/store";
+import drizzleOptions from "./assets/contracts/drizzleOptions";
 import { myMixins } from "./assets/js/Wallet/ConnectWallet";
 export default {
   data() {
@@ -14,6 +16,8 @@ export default {
   },
   mixins: [myMixins],
   async created() {
+    const drizzle = new Drizzle(drizzleOptions);
+    this.$store.state.drizzle = drizzle;
     await this.connectWallet();
     this.$store.dispatch("getHangQing");
     setInterval(() => {

@@ -11,7 +11,7 @@
           >{{ item.id }}</span
         >
       </div>
-      <img src="../../assets/images/search.png" @click="goSearch" />
+      <!-- <img src="../../assets/images/search.png" @click="goSearch" /> -->
     </div>
 
     <div class="filter">

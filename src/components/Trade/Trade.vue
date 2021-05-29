@@ -196,6 +196,8 @@ let view_img2 = require("../../assets/images/view_img3.png");
 import CurrentEntrust from "./CurrentEntrust";
 import TransactionRecord from "./TransactionRecord";
 import SlidingPointDialog from "./SlidingPointSetingDialog";
+import ERC20 from "../../assets/contracts/abi/ERC20.json";
+
 export default {
   name: "Trade",
   data() {
@@ -230,6 +232,11 @@ export default {
       let pairInfos = this.$store.state.hangqing.filter(pairInfo => (pairInfo.symbol == this.pairInfo.symbol) && (pairInfo.baseTokenName == this.pairInfo.baseTokenName));
       this.pairInfo.high24h =  pairInfos[0].high24h;
     }, 3000);
+
+    var contractConfig = {
+      contractName: "",
+      web3Contract: new web3.eth.Contract(/* ... */)
+    }
   },
   beforeDestroy() {
     clearInterval(this.pairIntervalId);
