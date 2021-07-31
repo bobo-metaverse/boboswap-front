@@ -16,6 +16,12 @@ const actions = {
   setChainId(vuex, v) {
     vuex.commit(TYPES.SET_CHAINID,v)
   },
+  setWeb3(vuex, v) {
+    vuex.commit(TYPES.SET_WEB3,v)
+  },
+  setDrizzle(vuex, v) {
+    vuex.commit(TYPES.SET_DRIZZLE,v)
+  },
   getHangQing(vuex, v) {
     vuex.commit(TYPES.GET_HANGQING,v)
   },

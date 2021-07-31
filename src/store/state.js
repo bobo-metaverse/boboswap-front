@@ -4,6 +4,8 @@ const state = {
 	account: null,
 	isConnected: null,
 	chainId: null,
+	web3: null,
+	drizzle: null,
 	hangqing: [],
 	
 }

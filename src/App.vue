@@ -17,7 +17,7 @@ export default {
   mixins: [myMixins],
   async created() {
     const drizzle = new Drizzle(drizzleOptions);
-    this.$store.state.drizzle = drizzle;
+    this.$store.dispatch("setDrizzle", drizzle);
     await this.connectWallet();
     this.$store.dispatch("getHangQing");
     setInterval(() => {

@@ -62,7 +62,7 @@
             <span>{{ item.symbol }}</span
             ><span>/ {{ item.baseTokenName }}</span>
           </div>
-          <div class="text2">24H额￥***万</div>
+          <div class="text2">24H额 {{item.volumnOf24Hours}} U</div>
         </div>
         <div class="item_right">
           <div class="right_div1"><span>--</span><span>￥**</span></div>

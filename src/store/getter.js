@@ -15,6 +15,12 @@ import state from "./state"
 	 },
 	 chainId:(state, getters) => {
 		return state.chainId
+	 },
+	 web3:(state, getters) => {
+		return state.web3
+	 },
+	 drizzle:(state, getters) => {
+		return state.drizzle
 	 }
 }
 export default(getters)

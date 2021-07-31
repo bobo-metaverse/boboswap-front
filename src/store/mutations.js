@@ -1,6 +1,7 @@
 import * as TYPES from "./types";
 import * as API from "../assets/js/Common/API"
 import axios from 'axios'
+import BoboPair from "../assets/contracts/abi/BoboPair.json";
 import * as BASEJS from '../assets/js/Common/base'
 const mutations = {
   [TYPES.CHANGE_SKIN](state, v) {
@@ -18,6 +19,12 @@ const mutations = {
 	},
 	[TYPES.SET_CHAINID](state, v) {
 		state.chainId = v;
+	},
+	[TYPES.SET_WEB3](state, v) {
+		state.web3 = v;
+	},
+	[TYPES.SET_DRIZZLE](state, v) {
+		state.drizzle = v;
 	},
 	[TYPES.GET_HANGQING](state, v) {
 		state.hangqing = [];
@@ -42,7 +49,7 @@ const mutations = {
 					pairInfo.baseTokenAddr = pairBaseInfo.baseTokenAddr;
 					pairInfo.baseTokenName = pairBaseInfo.baseTokenName;
 					pairInfo.coingecko_currency = pairBaseInfo.coingecko_currency;
-					//
+					
 					//24H涨跌幅
 					let url = API.getRiseFall + "vs_currency=" + pairInfo.coingecko_currency + "&ids=" + pairInfo.coingeckoId;
 					axios.get(url).then((res) => {
@@ -53,6 +60,26 @@ const mutations = {
 						pairInfo.high24h = res.data[0].price_change_percentage_24h.toFixed(2);
 						state.hangqing.push(pairInfo);					
 					});
+
+					// 24成交量
+					const boboFactory = state.drizzle.contracts.BoboFactory;
+					boboFactory.methods
+						.getPair(peerAddr, pairBaseInfo.baseTokenAddr)
+						.call()
+						.then((pairAddr) => {
+							if (pairAddr != '0x0000000000000000000000000000000000000000') {
+								//console.log(pairAddr, '=>', peerAddr, pairBaseInfo.baseTokenAddr);
+								const boboPair = new state.web3.eth.Contract(BoboPair.abi, pairAddr);
+								boboPair.methods.volumnOf24Hours().call().then(volumn => {
+									console.log(pairAddr, volumn);
+									pairInfo.volumnOf24Hours = volumn;
+								})
+							} else {
+								pairInfo.volumnOf24Hours = 0;
+							}
+						});
+
+					// 聚合价
 				}
 			}
 		});

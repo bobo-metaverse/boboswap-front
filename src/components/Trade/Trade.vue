@@ -232,11 +232,25 @@ export default {
       let pairInfos = this.$store.state.hangqing.filter(pairInfo => (pairInfo.symbol == this.pairInfo.symbol) && (pairInfo.baseTokenName == this.pairInfo.baseTokenName));
       this.pairInfo.high24h =  pairInfos[0].high24h;
     }, 3000);
-
-    var contractConfig = {
-      contractName: "",
-      web3Contract: new web3.eth.Contract(/* ... */)
+    var baseTokenContract = {
+      contractName: this.pairInfo.baseTokenName,
+      web3Contract: new this.$store.state.web3.eth.Contract(ERC20, this.pairInfo.baseTokenAddr)
     }
+    this.$store.state.drizzle.addContract(baseTokenContract, []);
+
+    var peerTokenContract = {
+      contractName: this.pairInfo.symbol,
+      web3Contract: new this.$store.state.web3.eth.Contract(ERC20, this.pairInfo.address)
+    }
+    this.$store.state.drizzle.addContract(peerTokenContract, []);
+
+    this.$store.state.drizzle.contracts[this.pairInfo.baseTokenName]
+      .methods.balanceOf(this.$store.state.account)
+      .call()
+      .then(v => {
+        console.log('balance=', v)
+      });
+
   },
   beforeDestroy() {
     clearInterval(this.pairIntervalId);

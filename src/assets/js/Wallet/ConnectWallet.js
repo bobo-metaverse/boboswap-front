@@ -22,14 +22,14 @@ export const myMixins = {
             if (
               window.ethereum.networkVersion != "56" &&
               window.ethereum.networkVersion != "128" &&
-              window.ethereum.networkVersion != "1"
+              window.ethereum.networkVersion != "137"
             ) {
               _this.toast("error","请将MetaMask连接到ETH、BSC或Heco网络，否则您无法正常使用本网站")
             } else {
               const chainId = window.ethereum.networkVersion; // 链ID，bsc=56, heco=128
               _this.$store.dispatch("setChainId", chainId);
               _this.web3 = new Web3(window.ethereum); // window.ethereum是MetaMask嵌入到浏览器的对象
-              //console.log(_this.web3);
+              _this.$store.dispatch("setWeb3", _this.web3);
               let accountMost = "";
               _this.web3.eth.getAccounts().then((accounts) => {
                 // 获取MetaMask上的当前账号地址accounts[0]]
