@@ -65,7 +65,7 @@
           <div class="text2">24H额 {{item.volumnOf24Hours}} U</div>
         </div>
         <div class="item_right">
-          <div class="right_div1"><span>--</span><span>￥**</span></div>
+          <div class="right_div1"><span>{{item.currentPrice}} U</span></div>
           <span class="right_div2" :class="item.high24h > 0 ? 'up' : 'down'"
             >{{ item.high24h > 0 ? "+" : null }}{{ item.high24h }}%</span
           >

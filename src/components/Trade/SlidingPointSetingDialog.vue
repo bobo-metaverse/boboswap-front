@@ -26,7 +26,7 @@
       <el-button size="mini">5%</el-button>
       <el-button size="mini">10%</el-button>
     </el-button-group>
-    <div class="seting_1">
+    <!-- <div class="seting_1">
       <span>交易超时时间</span>
       <el-popover
         placement="top"
@@ -45,7 +45,7 @@
       type="number"
     >
       <template slot="append">分钟</template>
-    </el-input>
+    </el-input> -->
     <div class="save">保存</div>
   </div>
 </template>

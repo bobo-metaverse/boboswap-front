@@ -9,15 +9,15 @@
     </div>
     <div class="data">
       <div class="data_left">
-        <span class="red_data">8017.15</span>
+        <span class="red_data">1.08</span>
         <div class="data_item2">
-          <span>≈57001.93CNY</span>
+          <span>6.93CNY</span>
           <span>-0.08%</span>
         </div>
       </div>
       <div class="data_right">
-        <div class="right_item"><span>高</span><span>8036.29</span></div>
-        <div class="right_item"><span>低</span><span>8013.29</span></div>
+        <div class="right_item"><span>高</span><span>1.11</span></div>
+        <div class="right_item"><span>低</span><span>1.01</span></div>
         <div class="right_item"><span>24H</span><span>17315</span></div>
       </div>
     </div>

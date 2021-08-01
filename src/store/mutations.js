@@ -1,6 +1,7 @@
 import * as TYPES from "./types";
 import * as API from "../assets/js/Common/API"
 import axios from 'axios'
+import BigNumber from 'bignumber.js'
 import BoboPair from "../assets/contracts/abi/BoboPair.json";
 import * as BASEJS from '../assets/js/Common/base'
 const mutations = {
@@ -62,22 +63,30 @@ const mutations = {
 					});
 
 					// 24成交量
-					const boboFactory = state.drizzle.contracts.BoboFactory;
-					boboFactory.methods
-						.getPair(peerAddr, pairBaseInfo.baseTokenAddr)
-						.call()
-						.then((pairAddr) => {
-							if (pairAddr != '0x0000000000000000000000000000000000000000') {
-								//console.log(pairAddr, '=>', peerAddr, pairBaseInfo.baseTokenAddr);
-								const boboPair = new state.web3.eth.Contract(BoboPair.abi, pairAddr);
-								boboPair.methods.volumnOf24Hours().call().then(volumn => {
-									console.log(pairAddr, volumn);
-									pairInfo.volumnOf24Hours = volumn;
-								})
-							} else {
-								pairInfo.volumnOf24Hours = 0;
-							}
-						});
+					setTimeout(() => {
+						const boboFactory = state.drizzle.contracts.BoboFactory;
+						boboFactory.methods
+							.getPair(peerAddr, pairBaseInfo.baseTokenAddr)
+							.call()
+							.then((pairAddr) => {
+								if (pairAddr != '0x0000000000000000000000000000000000000000') {
+									//console.log(pairAddr, '=>', peerAddr, pairBaseInfo.baseTokenAddr);
+									pairInfo.pairAddr = pairAddr;
+									const boboPair = new state.web3.eth.Contract(BoboPair, pairAddr);
+									boboPair.methods.volumnOf24Hours().call().then(volumn => {
+										pairInfo.volumnOf24Hours = volumn;
+									});
+									boboPair.methods.getCurrentPrice().call().then(price => {
+										console.log(pairAddr, price);
+										pairInfo.currentPrice = new BigNumber(price).shiftedBy(-6);
+									});
+									
+								} else {
+									pairInfo.volumnOf24Hours = 0;
+								}
+							});
+					}, state.drizzle == null ? 1500 : 1000);
+					
 
 					// 聚合价
 				}

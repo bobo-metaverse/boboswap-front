@@ -4,21 +4,19 @@ import OrderDetailNFT from "../contracts/abi/OrderDetailNFT.json";
 import BoboBetaToken from "../contracts/abi/BoboBetaToken.json";
 import BoboFactory from "../contracts/abi/BoboFactory.json";
 import BoboRouter from "../contracts/abi/BoboRouter.json";
-import BoboPair from "../contracts/abi/BoboPair.json";
 import BoboFarmer from "../contracts/abi/BoboFarmer.json";
 import EXManager from "../contracts/abi/EXManager.json";
 import StratMaticSushi from "../contracts/abi/StratMaticSushi.json";
 
 
-OrderNFT.networks['137'] = {address: '0x2612E2B8D5369dA8154210b988c917bfd361CAc8'};
-OrderDetailNFT.networks['137'] = {address: '0xa14cCc81ADbdbe9DAdBaa8Ef1c6Aeff763f1A2E3'};
+OrderNFT.networks['137'] = {address: '0x04673384398379a84d05895456AE02fc05B4a509'};
+OrderDetailNFT.networks['137'] = {address: '0x75508A1de2183a1F2Bf1822d6794698c953A1788'};
 BoboBetaToken.networks['137'] = {address: '0x637C6b0eDFB8835aC46B4Afd98d0601e68669da7'};
-BoboFactory.networks['137'] = {address: '0xf4356f993561571F064EeB0b50cd6B598B75551b'};
+BoboFactory.networks['137'] = {address: '0xC3b7119930a94c3a6Cf73C12428732db7440c486'};
 BoboRouter.networks['137'] = {address: '0xe0d6f9636794d03c9Ae4E0630199B9BD1b9CE568'};
-BoboPair.networks['137'] = {address: '0x366cAbf9a0Bb68dBA4626EBBb85A651695Eb3CB7'};
-BoboFarmer.networks['137'] = {address: '0x54fd608c2Fdd52364A9103c2B4fb83EEd66ce2BE'};
-EXManager.networks['137'] = {address: '0xd51590C8af2f4a43Eec302a276E33c4B970b4270'};
-StratMaticSushi.networks['137'] = {address: '0x3bc9A21293c1b52f936e4527288a2A8781fE5F03'};
+BoboFarmer.networks['137'] = {address: '0xd79Df7Ec6Ff4f5dDc53A3D60ecaf25316a532baD'};
+EXManager.networks['137'] = {address: '0x7a29BefCb6d0c6FEBdD33003Fa08b139C63C2367'};
+StratMaticSushi.networks['137'] = {address: '0xa5C926114617BA582bb28e5A5661fF545524d20C'};
 
 const options = {
   web3: {
@@ -26,7 +24,7 @@ const options = {
     customProvider: new Web3(window.ethereum),
   },
   contracts: [
-    OrderNFT, OrderDetailNFT, BoboBetaToken, BoboFactory, BoboRouter, BoboPair, EXManager, StratMaticSushi, BoboFarmer
+    OrderNFT, OrderDetailNFT, BoboBetaToken, BoboFactory, BoboRouter, EXManager, StratMaticSushi, BoboFarmer
   ],
   events: {
   },
